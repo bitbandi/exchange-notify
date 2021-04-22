@@ -17,9 +17,11 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
+        "illuminate/database": "^8.0",
         "laravel-zero/framework": "^8.4"
     },
     "require-dev": {
+        "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.2",
         "pestphp/pest": "^1.0"
     },
@@ -40,5 +42,5 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "bin": ["application"]
+    "bin": ["exchange-notify"]
 }
