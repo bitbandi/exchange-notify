@@ -1,24 +1,30 @@
 {
-    "name": "laravel-zero/laravel-zero",
-    "description": "The Laravel Zero Framework.",
-    "keywords": ["framework", "laravel", "laravel zero", "console", "cli"],
+    "name": "elbandi/exchange-notify",
+    "description": "Notify exchange trades and transactions",
+    "keywords": ["cryptocurrency", "exchange", "trade", "transactions", "console", "cli"],
     "homepage": "https://laravel-zero.com",
     "type": "project",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/laravel-zero/laravel-zero/issues",
-        "source": "https://github.com/laravel-zero/laravel-zero"
+        "issues": "https://github.com/bitbandi/exchange-notify/issues",
+        "source": "https://github.com/bitbandi/exchange-notify"
     },
     "authors": [
         {
-            "name": "Nuno Maduro",
-            "email": "enunomaduro@gmail.com"
+            "name": "Elbandi",
+            "email": "bandispam@gmail.com"
         }
     ],
     "require": {
         "php": "^7.3|^8.0",
         "illuminate/database": "^8.0",
-        "laravel-zero/framework": "^8.4"
+        "illuminate/notifications": "^v8.38.0",
+        "laravel-zero/framework": "^8.4",
+        "pragmarx/yaml": "^v0.4.0",
+        "ccxt/ccxt": "^1.48.40",
+        "php-pushover/php-pushover": "^v1.0.1",
+        "laravel/slack-notification-channel": "^v2.3.1",
+        "laravel-notification-channels/pushover": "^3.0.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

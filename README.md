@@ -1,36 +1,67 @@
-<p align="center">
-    <img title="Laravel Zero" height="100" src="https://raw.githubusercontent.com/laravel-zero/docs/master/images/logo/laravel-zero-readme.png" />
-</p>
+# Exchange notify
 
-<p align="center">
-  <a href="https://github.com/laravel-zero/framework/actions"><img src="https://img.shields.io/github/workflow/status/laravel-zero/framework/Tests.svg" alt="Build Status"></img></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/dt/laravel-zero/framework.svg" alt="Total Downloads"></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/v/laravel-zero/framework.svg?label=stable" alt="Latest Stable Version"></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/l/laravel-zero/framework.svg" alt="License"></a>
-</p>
-
-<h4> <center>This is a <bold>community project</bold> and not an official Laravel one </center></h4>
-
-Laravel Zero was created by, and is maintained by [Nuno Maduro](https://github.com/nunomaduro), and is a micro-framework that provides an elegant starting point for your console application. It is an **unofficial** and customized version of Laravel optimized for building command-line applications.
-
-- Built on top of the [Laravel](https://laravel.com) components.
-- Optional installation of Laravel [Eloquent](https://laravel-zero.com/docs/database/), Laravel [Logging](https://laravel-zero.com/docs/logging/) and many others.
-- Supports interactive [menus](https://laravel-zero.com/docs/build-interactive-menus/) and [desktop notifications](https://laravel-zero.com/docs/send-desktop-notifications/) on Linux, Windows & MacOS.
-- Ships with a [Scheduler](https://laravel-zero.com/docs/task-scheduling/) and  a [Standalone Compiler](https://laravel-zero.com/docs/build-a-standalone-application/).
-- Integration with [Collision](https://github.com/nunomaduro/collision) - Beautiful error reporting
+A small stand-alone CLI app, built with [Laravel Zero](https://laravel-zero.com/), that notifies you about your trades and transactions history in crypto exchanges.
 
 ------
 
+## Install
+
+- Clone the repository
+  ```bash
+  git clone https://github.com/bitbandi/exchange-notify.git
+  cd exchange-notify/
+  ```
+- Install vendor libraries
+  ```bash
+  composer install
+  ```
+- Copy .env.example to .env
+  ```bash
+  cp .env.example .env
+  ```
+- Create database layout, edit .env. "mysql" and "postgresql" are acceptable `DB_CONNECTION` types.
+  ```mysql
+  CREATE DATABASE exchangenotify;
+  GRANT ALL on exchangenotify.* to exchangenotify@localhost IDENTIFIED BY 'MAKEUPYOUROWNPASSWORD';
+  ```
+  Update the _.env_ file, set the `DB_USERNAME`, `DB_PASSWORD` and `DB_DATABASE` fields.
+- Migrate the database
+  ```bash
+  ./exchange-notify migrate:install
+  ./exchange-notify migrate
+  ```
+- Create slack webhook for notify, and set the hook url in _.env_ file
+  ```
+  SLACK_URL=https://hooks.slack.com/services/....
+  ```
+- Setup exchange apis, in _config/exchanges.yaml_ file
+  ```
+  ---
+  - exchange: bittrex
+    apikey: 123456789
+    apisecret: 98765432
+    account: youraccountname
+    notify: slack
+  - exchange: binance
+    apikey: 123456789
+    apisecret: 98765432
+    account: youraccountname
+    notify: slack
+  
+  ```
+
+### Use
+
+#### Basic usage
+
+```shell
+    php exchange-notify query
+```
+
 ## Documentation
 
-For full documentation, visit [laravel-zero.com](https://laravel-zero.com/).
-
-## Support the development
-**Do you like this project? Support it by donating**
-
-- PayPal: [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L)
-- Patreon: [Donate](https://www.patreon.com/nunomaduro)
+Coming soon.
 
 ## License
 
-Laravel Zero is an open-source software licensed under the MIT license.
+Exchange Notify is an open-source software licensed under the [MIT license](LICENSE.md).

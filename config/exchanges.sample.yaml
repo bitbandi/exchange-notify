@@ -1,0 +1,6 @@
+---
+- exchange: bittrex
+  apikey: 123456789
+  apisecret: 98765432
+  account: youraccountname
+  notify: slack
