@@ -2,7 +2,6 @@
 
 namespace App\Commands;
 
-use App\Configuration;
 use App\Service\ExchangeService;
 use Exception;
 use Illuminate\Console\Scheduling\Schedule;
@@ -26,13 +25,6 @@ class QueryCommand extends Command
     protected $description = 'Display an inspiring quote';
 
     /**
-     * The configuration instance.
-     *
-     * @var Configuration
-     */
-    protected $config;
-
-    /**
      * @var ExchangeService
      */
     protected $exchangeService;
@@ -40,14 +32,12 @@ class QueryCommand extends Command
     /**
      * QueryCommand constructor.
      *
-     * @param Configuration $config
      * @param ExchangeService $exchangeService
      */
-    public function __construct(Configuration $config, ExchangeService $exchangeService)
+    public function __construct(ExchangeService $exchangeService)
     {
         parent::__construct();
 
-        $this->config = $config;
         $this->exchangeService = $exchangeService;
     }
 
@@ -60,7 +50,7 @@ class QueryCommand extends Command
     {
         try {
 //
-            if (empty($exchanges = $this->config->getExchanges())) {
+            if (empty($exchanges = config('exchanges'))) {
                 $this->error('There are no registered exchanges.');
                 return;
             }
@@ -82,7 +72,6 @@ class QueryCommand extends Command
         } catch (Exception $exception) {
             $this->error($exception->getMessage());
         }
-        // $this->info('Simplicity is the ultimate sophistication.');
     }
 
     /**

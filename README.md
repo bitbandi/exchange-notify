@@ -30,24 +30,48 @@ A small stand-alone CLI app, built with [Laravel Zero](https://laravel-zero.com/
   ./exchange-notify migrate:install
   ./exchange-notify migrate
   ```
-- Create slack webhook for notify, and set the hook url in _.env_ file
-  ```
-  SLACK_URL=https://hooks.slack.com/services/....
-  ```
+- Setup notification channel
+
+  ###### Slack
+    - Create slack webhook for notify, and set the hook url in _.env_ file
+      ```
+      SLACK_URL=https://hooks.slack.com/services/....
+      ```
+
+  ###### Pushover
+    - Create one (or more for every exchange) application in pushover.net
+    - Set the user key and the app(s) token in _.env_ file
+      ```
+      PUSHOVER_KEY=pushover_userkey
+      PUSHOVER_APP=pushover_app_common_token
+      PUSHOVER_APP_BITTREX=pushover_app_bittrex_token
+      ```
+
+  ###### Telegram
+    - Talk to [@BotFather](https://core.telegram.org/bots#6-botfather) and generate a Bot API Token.
+    - Get your telegram user id
+    - Configure your Telegram Bot API Token in _.env_ file
+      ```
+      TELEGRAM_BOT_TOKEN=12345678:foobarbazz
+      TELEGRAM_USER_ID=12345
+      ```
+
 - Setup exchange apis, in _config/exchanges.yaml_ file
+
+  > **Note:** you can setup the notification channel individually for every exchange
+
   ```
   ---
   - exchange: bittrex
     apikey: 123456789
     apisecret: 98765432
     account: youraccountname
-    notify: slack
+    notify: slack,telegram,pushover
   - exchange: binance
     apikey: 123456789
     apisecret: 98765432
     account: youraccountname
-    notify: slack
-  
+    notify: slack,telegram,pushover
   ```
 
 ### Use

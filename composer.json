@@ -18,13 +18,15 @@
     "require": {
         "php": "^7.3|^8.0",
         "illuminate/database": "^8.0",
-        "illuminate/notifications": "^v8.38.0",
+        "illuminate/notifications": "^v8.0",
+        "illuminate/view": "^v8.0",
         "laravel-zero/framework": "^8.4",
         "pragmarx/yaml": "^v0.4.0",
-        "ccxt/ccxt": "^1.48.40",
+        "ccxt/ccxt": "^1.48",
         "php-pushover/php-pushover": "^v1.0.1",
         "laravel/slack-notification-channel": "^v2.3.1",
-        "laravel-notification-channels/pushover": "^3.0.0"
+        "laravel-notification-channels/pushover": "^3.0.0",
+        "laravel-notification-channels/telegram": "^0.5.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

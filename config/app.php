@@ -69,8 +69,10 @@ return [
     'providers' => [
         App\Providers\AppServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
-        Illuminate\Notifications\SlackChannelServiceProvider::class,
-        NotificationChannels\Pushover\PushoverServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
+        Illuminate\Notifications\SlackChannelServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,
+        NotificationChannels\Pushover\PushoverServiceProvider::class,
+        NotificationChannels\Telegram\TelegramServiceProvider::class,
     ],
 ];
