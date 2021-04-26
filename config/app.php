@@ -72,6 +72,7 @@ return [
         Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Notifications\SlackChannelServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        NotificationChannels\Discord\DiscordServiceProvider::class,
         NotificationChannels\Pushover\PushoverServiceProvider::class,
         NotificationChannels\Telegram\TelegramServiceProvider::class,
     ],

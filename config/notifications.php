@@ -17,5 +17,6 @@ return [
     'pushover_key' => env('PUSHOVER_KEY'),
     'pushover_token' => env('PUSHOVER_APP'),
     'pushover_tokens' => getPushoverTokens(),
+    'discord_user_id' => env('DISCORD_USER_ID'),
     'telegram_user_id' => env('TELEGRAM_USER_ID'),
 ];

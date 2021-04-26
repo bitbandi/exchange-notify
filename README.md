@@ -56,6 +56,23 @@ A small stand-alone CLI app, built with [Laravel Zero](https://laravel-zero.com/
       TELEGRAM_USER_ID=12345
       ```
 
+  ###### Discord
+
+    - [Create a Discord application.](https://discord.com/developers/applications)
+    - Click the `Create a Bot User` button on your Discord application.
+    - Configure your bot's API token in _.env_ file
+      ```
+      DISCORD_TOKEN=foobarbaz
+      ```
+    - Add the bot to your server and identify it by running the artisan command:
+      ```shell
+      php exchange-notify discord:setup
+      ```
+    - [Get your User ID](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-), and set it in _.env_ file
+      ```
+      DISCORD_USER_ID=123456789
+      ```
+    
 - Setup exchange apis, in _config/exchanges.yaml_ file
 
   > **Note:** you can setup the notification channel individually for every exchange

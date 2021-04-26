@@ -38,6 +38,10 @@ return [
         'token' => env('PUSHOVER_TOKEN'),
     ],
 
+    'discord' => [
+        'token' => env('DISCORD_TOKEN'),
+    ],
+
     'telegram-bot-api' => [
         'token' => env('TELEGRAM_BOT_TOKEN')
     ],

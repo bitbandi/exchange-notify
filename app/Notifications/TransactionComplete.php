@@ -4,6 +4,7 @@
 namespace App\Notifications;
 
 use Illuminate\Notifications\Messages\SlackMessage;
+use NotificationChannels\Discord\DiscordMessage;
 use NotificationChannels\Pushover\PushoverMessage;
 use NotificationChannels\Telegram\TelegramMessage;
 
@@ -72,5 +73,30 @@ class TransactionComplete extends BaseNotification
                 'currency' => $notifiable->currency,
                 'address' => $notifiable->address,
             ]);
+    }
+
+    /**
+     * Get the Discord representation of the notification.
+     *
+     * @param mixed $notifiable
+     * @return DiscordMessage
+     */
+    public function toDiscord($notifiable)
+    {
+        $message = DiscordMessage::create(sprintf("%s complete", $notifiable->type == "DEPOSIT" ? "Deposit" : "Withdrawal"),
+            [
+                'type' => 'rich',
+                'timestamp' => $notifiable->datetime,
+                'title' => sprintf("%s @ %s", $notifiable->account, $notifiable->exchange),
+                'color' => 0x5cb85c,
+                'description' => sprintf("Amount: %.8f %s\nAddress: %s",
+                    $notifiable->amount, $notifiable->currency, $notifiable->address),
+//                'footer' => [
+//                    'text' => 'ez a footer',
+//                ],
+            ]
+        );
+        dump($message);
+        return $message;
     }
 }
