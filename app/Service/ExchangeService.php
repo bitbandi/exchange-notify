@@ -55,8 +55,8 @@ class ExchangeService
                     'total' => $trade["cost"],
                     'fee' => isset($trade["fee"]) ? $trade["fee"]['cost'] : 0,
                 ]);
-//            dump($tradeModel->wasChanged()); // wasRecentlyCreated
-            if ($tradeModel->wasChanged()) {
+//            dump($tradeModel);
+            if ($tradeModel->wasRecentlyCreated || $tradeModel->wasChanged()) {
                 $tradeModel->notify(new TradeComplete($notify_via));
             }
         }
@@ -82,8 +82,8 @@ class ExchangeService
                         'amount' => $transaction["amount"],
                         'fee' => isset($transaction["fee"]) ? $transaction["fee"]['cost'] : 0,
                     ]);
-//                dump($transactionModel->wasChanged()); // wasRecentlyCreated
-                if ($transactionModel->wasChanged()) {
+//                dump($transactionModel);
+                if ($transactionModel->wasRecentlyCreated || $transactionModel->wasChanged()) {
                     $transactionModel->notify(new TransactionComplete($notify_via));
                 }
             }
