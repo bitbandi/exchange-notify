@@ -2,6 +2,6 @@
 
 test('query command', function () {
     $this->artisan('query')
-         ->expectsOutput('Simplicity is the ultimate sophistication.')
+         ->expectsOutput('There are no registered exchanges.')
          ->assertExitCode(0);
 });
