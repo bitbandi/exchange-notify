@@ -67,7 +67,6 @@ return [
     */
 
     'providers' => [
-        App\Providers\AppServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Notifications\SlackChannelServiceProvider::class,
@@ -75,5 +74,7 @@ return [
         NotificationChannels\Discord\DiscordServiceProvider::class,
         NotificationChannels\Pushover\PushoverServiceProvider::class,
         NotificationChannels\Telegram\TelegramServiceProvider::class,
+        PragmaRX\Yaml\Package\ServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
     ],
 ];

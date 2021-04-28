@@ -45,4 +45,8 @@ return [
     'telegram-bot-api' => [
         'token' => env('TELEGRAM_BOT_TOKEN')
     ],
+
+    'exchanges' => [
+        'config' => env('EXCHANGES_LOC', config_path('exchanges.yaml'))
+    ],
 ];
