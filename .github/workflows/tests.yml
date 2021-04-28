@@ -23,7 +23,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        extensions: fileinfo, intl
+        extensions: fileinfo, intl, sqlite3, pdo_sqlite, pdo_mysql
         tools: composer:v2
         coverage: pcov
 
@@ -35,11 +35,24 @@ jobs:
     - name: Install Composer dependencies
       run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist --no-suggest
 
+    - name: Create tests database
+      run: php -r "touch('database'.DIRECTORY_SEPARATOR.'database.sqlite');"
+
     - name: PHPUnit Testing
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
       run: vendor/bin/pest --coverage
 
     - name: Build
-      run: php application app:build --build-version=0.0
+      env:
+        APP_ENV: development
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
+      run: php exchange-notify app:build --build-version=0.0
 
     - name: Build Check
-      run: php builds/application --version
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
+      run: php builds/exchange-notify --version
