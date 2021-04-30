@@ -54,20 +54,12 @@ class QueryCommand extends Command
                 $this->error('There are no registered exchanges.');
                 return;
             }
-/*            $exchange_name = '\\ccxt\\' . $item;
-            if (class_exists($exchange_name)) {
-            }*/
+            $this->exchangeService->setNotify(!$this->option('no-notify'));
             $request_exchanges = $this->argument('exchange');
-            var_dump($request_exchanges);
             foreach ($exchanges as $exchange) {
                 if (empty($request_exchanges) || in_array($exchange["exchange"], $request_exchanges)) {
-                    var_dump($exchange);
                     $this->exchangeService->Query($exchange);
                 }
-            }
-            if (!$this->option('no-notify')) {
-                // $this->call('import:images');
-                $this->info('ide kerul majd a notifiy');
             }
         } catch (Exception $exception) {
             $this->error($exception->getMessage());

@@ -5,13 +5,24 @@ namespace App\Service;
 use App\Models\Balance;
 use App\Models\Trade;
 use App\Models\Transaction;
-use App\Notifications\BaseNotification;
 use App\Notifications\TradeComplete;
 use App\Notifications\TransactionComplete;
-use Illuminate\Support\Facades\Notification;
 
 class ExchangeService
 {
+    private $notify = true;
+
+    /**
+     * @param bool $notify
+     */
+    public function setNotify(bool $notify)
+    {
+        $this->notify = $notify;
+    }
+
+    /**
+     * @param $exchangeConfig
+     */
     public function Query($exchangeConfig)
     {
         $exchange_name = '\\ccxt\\' . $exchangeConfig["exchange"];
@@ -56,8 +67,10 @@ class ExchangeService
                     'fee' => isset($trade["fee"]) ? $trade["fee"]['cost'] : 0,
                 ]);
 //            dump($tradeModel);
-            if ($tradeModel->wasRecentlyCreated || $tradeModel->wasChanged()) {
-                $tradeModel->notify(new TradeComplete($notify_via));
+            if ($this->notify) {
+                if ($tradeModel->wasRecentlyCreated || $tradeModel->wasChanged()) {
+                    $tradeModel->notify(new TradeComplete($notify_via));
+                }
             }
         }
     }
@@ -83,8 +96,10 @@ class ExchangeService
                         'fee' => isset($transaction["fee"]) ? $transaction["fee"]['cost'] : 0,
                     ]);
 //                dump($transactionModel);
-                if ($transactionModel->wasRecentlyCreated || $transactionModel->wasChanged()) {
-                    $transactionModel->notify(new TransactionComplete($notify_via));
+                if ($this->notify) {
+                    if ($transactionModel->wasRecentlyCreated || $transactionModel->wasChanged()) {
+                        $transactionModel->notify(new TransactionComplete($notify_via));
+                    }
                 }
             }
         }
