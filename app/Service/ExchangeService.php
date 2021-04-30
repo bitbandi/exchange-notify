@@ -7,6 +7,7 @@ use App\Models\Trade;
 use App\Models\Transaction;
 use App\Notifications\TradeComplete;
 use App\Notifications\TransactionComplete;
+use ccxt\Exchange;
 
 class ExchangeService
 {
@@ -25,6 +26,9 @@ class ExchangeService
      */
     public function Query($exchangeConfig)
     {
+        if (!in_array($exchangeConfig["exchange"], Exchange::$exchanges)) {
+            return;
+        }
         $exchange_name = '\\ccxt\\' . $exchangeConfig["exchange"];
         $exchange = new $exchange_name(array(
             'apiKey' => $exchangeConfig["apikey"],
