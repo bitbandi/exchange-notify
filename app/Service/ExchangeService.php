@@ -56,7 +56,7 @@ class ExchangeService
             list($primary_currency, $secondary_currency) = explode("/", $trade["symbol"], 2);
             $tradeModel = Trade::updateOrCreate(
                 [
-                    'exchange' => $exchangeConfig["exchange"],
+                    'exchange' => strtoupper($exchangeConfig["exchange"]),
                     'account' => $exchangeConfig["account"],
                     'tradeid' => $trade["id"],
                 ],
@@ -87,7 +87,7 @@ class ExchangeService
             if ($transaction["status"] == "ok") {
                 $transactionModel = Transaction::updateOrCreate(
                     [
-                        'exchange' => $exchangeConfig["exchange"],
+                        'exchange' => strtoupper($exchangeConfig["exchange"]),
                         'account' => $exchangeConfig["account"],
                         'trxid' => $transaction["txid"],
                     ],
@@ -112,7 +112,7 @@ class ExchangeService
     protected function updateBalances($exchangeConfig, $balances)
     {
         $balance_list = Balance::where([
-            'exchange' => $exchangeConfig["exchange"],
+            'exchange' => strtoupper($exchangeConfig["exchange"]),
             'account' => $exchangeConfig["account"],
         ]);
         /*        $torolni = $balance_list->get()->reject(function ($balance) use ($balances) {
@@ -129,7 +129,7 @@ class ExchangeService
             if ($value > 0) {
                 Balance::updateOrCreate(
                     [
-                        'exchange' => $exchangeConfig["exchange"],
+                        'exchange' => strtoupper($exchangeConfig["exchange"]),
                         'account' => $exchangeConfig["account"],
                         'currency' => $currency,
                     ],
