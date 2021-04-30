@@ -17,7 +17,7 @@ class CreateTables extends Migration
             $table->string('exchange', 64);
             $table->string('account', 64)->nullable();
             $table->string('currency', 16);
-            $table->double('amount', 20, 9)->unsigned();
+            $table->unsignedDecimal('amount', 20, 8);
             $table->timestamps();
             $table->primary(['exchange', 'account', 'currency']);
         });
@@ -29,10 +29,10 @@ class CreateTables extends Migration
             $table->string('primary_currency', 16);
             $table->string('secondary_currency', 16);
             $table->enum('type', ['BUY', 'SELL']);
-            $table->double('tradeprice', 20, 9)->unsigned()->comment("The price the trade occurred at");
-            $table->double('quantity', 20, 9)->unsigned()->comment("Quantity traded");
-            $table->double('total', 20, 9)->unsigned()->comment("Total value of trade (tradeprice * quantity)");
-            $table->double('fee', 20, 9)->unsigned()->comment("Fee Charged for this Trade");
+            $table->unsignedDecimal('tradeprice', 20, 8)->comment("The price the trade occurred at");
+            $table->unsignedDecimal('quantity', 20, 8)->comment("Quantity traded");
+            $table->unsignedDecimal('total', 20, 8)->comment("Total value of trade (tradeprice * quantity)");
+            $table->unsignedDecimal('fee', 20, 8)->comment("Fee Charged for this Trade");
             $table->primary(['exchange', 'account', 'tradeid']);
 
         });
@@ -44,8 +44,8 @@ class CreateTables extends Migration
             $table->dateTime('datetime');
             $table->enum('type', ['DEPOSIT','WITHDRAWAL']);
             $table->string('address', 255)->nullable();
-            $table->double('amount', 20, 9)->unsigned();
-            $table->double('fee', 20, 9)->unsigned();
+            $table->unsignedDecimal('amount', 20, 8);
+            $table->unsignedDecimal('fee', 20, 8);
             $table->primary(['exchange', 'account', 'trxid']);
         });
     }

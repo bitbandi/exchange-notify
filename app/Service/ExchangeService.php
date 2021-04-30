@@ -50,7 +50,7 @@ class ExchangeService
                     'primary_currency' => $primary_currency,
                     'secondary_currency' => $secondary_currency,
                     'type' => strtoupper($trade["side"]),
-                    'tradeprice' => $trade["price"],
+                    'tradeprice' => round($trade["price"], 8),
                     'quantity' => $trade["amount"],
                     'total' => $trade["cost"],
                     'fee' => isset($trade["fee"]) ? $trade["fee"]['cost'] : 0,
@@ -79,7 +79,7 @@ class ExchangeService
                         'datetime' => $transaction["datetime"],
                         'type' => strtoupper($transaction["type"]),
                         'address' => $transaction["address"],
-                        'amount' => $transaction["amount"],
+                        'amount' => round($transaction["amount"], 8),
                         'fee' => isset($transaction["fee"]) ? $transaction["fee"]['cost'] : 0,
                     ]);
 //                dump($transactionModel);

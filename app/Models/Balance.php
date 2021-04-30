@@ -32,6 +32,6 @@ class Balance  extends CompositeKeysModel
      * @var array
      */
     protected $casts = [
-        'amount' => 'double',
+        'amount' => 'decimal:8',
     ];
 }

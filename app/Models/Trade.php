@@ -40,9 +40,9 @@ class Trade extends CompositeKeysModel
      * @var array
      */
     protected $casts = [
-        'tradeprice' => 'double',
-        'quantity' => 'double',
-        'total' => 'double',
-        'fee' => 'double',
+        'tradeprice' => 'decimal:8',
+        'quantity' => 'decimal:8',
+        'total' => 'decimal:8',
+        'fee' => 'decimal:8',
     ];
 }
