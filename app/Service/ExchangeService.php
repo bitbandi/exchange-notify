@@ -46,7 +46,7 @@ class ExchangeService
                     'tradeid' => $trade["id"],
                 ],
                 [
-                    'datetime' => $trade["datetime"],
+                    'datetime' => intval($trade["timestamp"] / 1000),
                     'primary_currency' => $primary_currency,
                     'secondary_currency' => $secondary_currency,
                     'type' => strtoupper($trade["side"]),
@@ -76,7 +76,7 @@ class ExchangeService
                     ],
                     [
                         'currency' => $transaction["currency"],
-                        'datetime' => $transaction["datetime"],
+                        'datetime' => intval($transaction["timestamp"] / 1000),
                         'type' => strtoupper($transaction["type"]),
                         'address' => $transaction["address"],
                         'amount' => round($transaction["amount"], 8),

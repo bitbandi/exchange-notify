@@ -40,6 +40,7 @@ class Trade extends CompositeKeysModel
      * @var array
      */
     protected $casts = [
+        'datetime' => 'datetime',
         'tradeprice' => 'decimal:8',
         'quantity' => 'decimal:8',
         'total' => 'decimal:8',

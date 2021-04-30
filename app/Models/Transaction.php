@@ -38,6 +38,7 @@ class Transaction extends CompositeKeysModel
      * @var array
      */
     protected $casts = [
+        'datetime' => 'datetime',
         'amount' => 'decimal:8',
         'fee' => 'decimal:8',
     ];
