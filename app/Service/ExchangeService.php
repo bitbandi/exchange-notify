@@ -34,18 +34,22 @@ class ExchangeService
             'apiKey' => $exchangeConfig["apikey"],
             'secret' => $exchangeConfig["apisecret"],
         ));
-        $balances = $exchange->fetch_balance();
-//        var_dump($balances["total"]);
-        $this->updateBalances($exchangeConfig, $balances);
-        $trades = $exchange->fetchMyTrades();
-//        var_dump($trades);
-        $this->updateTrades($exchangeConfig, $trades);
-        $deposits = $exchange->fetchDeposits();
-//        var_dump($deposits);
-        $this->updateTransactions($exchangeConfig, $deposits);
-        $withdrawal = $exchange->fetchWithdrawals();
-//        var_dump($withdrawal);
-        $this->updateTransactions($exchangeConfig, $withdrawal);
+        if ($exchange->has['fetchBalance']) {
+            $balances = $exchange->fetchBalance();
+            $this->updateBalances($exchangeConfig, $balances);
+        }
+        if ($exchange->has['fetchMyTrades']) {
+            $trades = $exchange->fetchMyTrades();
+            $this->updateTrades($exchangeConfig, $trades);
+        }
+        if ($exchange->has['fetchDeposits']) {
+            $deposits = $exchange->fetchDeposits();
+            $this->updateTransactions($exchangeConfig, $deposits);
+        }
+        if ($exchange->has['fetchWithdrawals']) {
+            $withdrawal = $exchange->fetchWithdrawals();
+            $this->updateTransactions($exchangeConfig, $withdrawal);
+        }
     }
 
     protected function updateTrades($exchangeConfig, $trades)
