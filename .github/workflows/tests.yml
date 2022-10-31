@@ -23,7 +23,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        extensions: fileinfo, intl, sqlite3, pdo_sqlite, pdo_mysql
+        extensions: fileinfo, gmp, intl, sqlite3, pdo_sqlite, pdo_mysql
         tools: composer:v2
         coverage: pcov
 
