@@ -27,6 +27,7 @@
         "laravel-notification-channels/telegram": "^3.0",
         "laravel-zero/framework": "^9.2.0",
         "laravel/slack-notification-channel": "^2.5",
+        "nesbot/carbon": "^2.62.1",
         "php-pushover/php-pushover": "^1.0",
         "pragmarx/yaml": "^1.3"
     },
