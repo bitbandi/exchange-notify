@@ -8,6 +8,7 @@ use App\Models\Transaction;
 use App\Notifications\TradeComplete;
 use App\Notifications\TransactionComplete;
 use ccxt\Exchange;
+use Henzeb\Console\Facades\Console;
 
 class ExchangeService
 {
@@ -29,6 +30,7 @@ class ExchangeService
         if (!in_array($exchangeConfig->getName(), Exchange::$exchanges)) {
             return;
         }
+        Console::info("Query ".$exchangeConfig->getName(). " exchange");
         $exchange_name = '\\ccxt\\' . $exchangeConfig->getName();
         $exchange = new $exchange_name(array(
             'apiKey' => $exchangeConfig->getApiKey(),

@@ -75,6 +75,7 @@ return [
         NotificationChannels\Pushover\PushoverServiceProvider::class,
         NotificationChannels\Telegram\TelegramServiceProvider::class,
         PragmaRX\Yaml\Package\ServiceProvider::class,
+        Henzeb\Console\Providers\ConsoleServiceProvider::class,
         App\Providers\AppServiceProvider::class,
     ],
 ];

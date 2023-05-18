@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fec8e926a093be52cc4b8a258f376cc2",
+    "content-hash": "a02e5174d9ab1a0ed1a81ac61b8581ca",
     "packages": [
         {
             "name": "brick/math",
@@ -1283,6 +1283,78 @@
                 }
             ],
             "time": "2023-04-17T16:11:26+00:00"
+        },
+        {
+            "name": "henzeb/laravel-console-facade",
+            "version": "v1.18.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/henzeb/laravel-console-facade.git",
+                "reference": "e2783980f6ee8ddebb280a76a96e2647cff33588"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/henzeb/laravel-console-facade/zipball/e2783980f6ee8ddebb280a76a96e2647cff33588",
+                "reference": "e2783980f6ee8ddebb280a76a96e2647cff33588",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^9.0|^10",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "infection/infection": "^0.26.19",
+                "nesbot/carbon": "v2.64.0",
+                "orchestra/testbench": "^v7.0.0|8.0",
+                "phpstan/phpstan": "^1.4",
+                "phpunit/phpunit": "^9.6.6"
+            },
+            "suggest": {
+                "ext-pcntl": "*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Henzeb\\Console\\Providers\\ConsoleServiceProvider"
+                    ],
+                    "aliases": {
+                        "Console": "Henzeb\\Console\\Facades\\Console"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Functions/Functions.php"
+                ],
+                "psr-4": {
+                    "Henzeb\\Console\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "AGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Henze Berkheij",
+                    "email": "henzeberkheij@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A convenient facade for interacting with the console",
+            "homepage": "https://github.com/henzeb/laravel-console-facade",
+            "keywords": [
+                "console",
+                "facade",
+                "henzeb",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/henzeb/laravel-console-facade/issues",
+                "source": "https://github.com/henzeb/laravel-console-facade/tree/v1.18.1"
+            },
+            "time": "2023-04-12T06:43:11+00:00"
         },
         {
             "name": "illuminate/broadcasting",
