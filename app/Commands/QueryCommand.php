@@ -60,7 +60,11 @@ class QueryCommand extends Command
             foreach ($exchanges as $exchange) {
                 $exchangeConfig = new ExchangeConfig($exchange);
                 if (empty($request_exchanges) || in_array($exchangeConfig->getName(), $request_exchanges)) {
-                    $this->exchangeService->Query($exchangeConfig);
+                    try {
+                        $this->exchangeService->Query($exchangeConfig);
+                    } catch (Exception $exception) {
+                        $this->error($exception->getMessage());
+                    }
                 }
             }
         } catch (Exception $exception) {

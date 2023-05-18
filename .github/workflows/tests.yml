@@ -55,4 +55,4 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php builds/exchange-notify --version
+      run: php builds/exchange-notify help --version
