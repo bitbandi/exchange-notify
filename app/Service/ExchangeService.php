@@ -143,7 +143,7 @@ class ExchangeService
         foreach ($balances["total"] as $currency => $value) {
             // var_dump($currency, $value);
             if ($value > 0) {
-                Balance::updateOrCreate(
+                $balance = Balance::updateOrCreate(
                     [
                         'exchange' => strtoupper($exchangeConfig->getName()),
                         'account' => $exchangeConfig->getAccount(),
@@ -151,6 +151,7 @@ class ExchangeService
                     ],
                     ['amount' => $value]
                 );
+                $balance->touch();
             }
         }
     }
