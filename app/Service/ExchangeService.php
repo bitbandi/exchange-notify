@@ -24,44 +24,51 @@ class ExchangeService
     /**
      * @param $exchangeConfig
      */
-    public function Query($exchangeConfig)
+    public function Query(ExchangeConfig $exchangeConfig)
     {
-        if (!in_array($exchangeConfig["exchange"], Exchange::$exchanges)) {
+        if (!in_array($exchangeConfig->getName(), Exchange::$exchanges)) {
             return;
         }
-        $exchange_name = '\\ccxt\\' . $exchangeConfig["exchange"];
+        $exchange_name = '\\ccxt\\' . $exchangeConfig->getName();
         $exchange = new $exchange_name(array(
-            'apiKey' => $exchangeConfig["apikey"],
-            'secret' => $exchangeConfig["apisecret"],
+            'apiKey' => $exchangeConfig->getApiKey(),
+            'secret' => $exchangeConfig->getApiSecret(),
+            'password' => $exchangeConfig->getApiPassword(),
         ));
-        if ($exchange->has['fetchBalance']) {
+        if ($exchange->has['fetchBalance'] && $exchangeConfig->AllowQueryBalance()) {
             $balances = $exchange->fetchBalance();
             $this->updateBalances($exchangeConfig, $balances);
         }
-        if ($exchange->has['fetchMyTrades']) {
-            $trades = $exchange->fetchMyTrades();
-            $this->updateTrades($exchangeConfig, $trades);
+        if ($exchange->has['fetchMyTrades'] && $exchangeConfig->AllowQueryTrades()) {
+            foreach ($exchangeConfig->getTradeSymbols() as $tradesymbol) {
+                $trades = $exchange->fetchMyTrades($tradesymbol);
+                $this->updateTrades($exchangeConfig, $trades);
+            }
         }
-        if ($exchange->has['fetchDeposits']) {
-            $deposits = $exchange->fetchDeposits();
-            $this->updateTransactions($exchangeConfig, $deposits);
+        if ($exchange->has['fetchDeposits'] && $exchangeConfig->AllowQueryDeposits()) {
+            foreach ($exchangeConfig->getDepositSymbols() as $depositsymbol) {
+                $deposits = $exchange->fetchDeposits($depositsymbol);
+                $this->updateTransactions($exchangeConfig, $deposits);
+            }
         }
-        if ($exchange->has['fetchWithdrawals']) {
-            $withdrawal = $exchange->fetchWithdrawals();
-            $this->updateTransactions($exchangeConfig, $withdrawal);
+        if ($exchange->has['fetchWithdrawals'] && $exchangeConfig->AllowQueryWithdrawals()) {
+            foreach ($exchangeConfig->getWithdrawalSymbols() as $withdrawalsymbol) {
+                $withdrawals = $exchange->fetchWithdrawals($withdrawalsymbol);
+                $this->updateTransactions($exchangeConfig, $withdrawals);
+            }
         }
     }
 
-    protected function updateTrades($exchangeConfig, $trades)
+    protected function updateTrades(ExchangeConfig $exchangeConfig, $trades)
     {
-        $notify_via = isset($exchangeConfig['notify']) ? explode(',', $exchangeConfig['notify']) : null;
+        $notify_via = $exchangeConfig->getNotifyVia();
         foreach ($trades as $trade) {
             //          var_dump($trade);
             list($primary_currency, $secondary_currency) = explode("/", $trade["symbol"], 2);
             $tradeModel = Trade::updateOrCreate(
                 [
-                    'exchange' => strtoupper($exchangeConfig["exchange"]),
-                    'account' => $exchangeConfig["account"],
+                    'exchange' => strtoupper($exchangeConfig->getName()),
+                    'account' => $exchangeConfig->getAccount(),
                     'tradeid' => $trade["id"],
                 ],
                 [
@@ -83,16 +90,16 @@ class ExchangeService
         }
     }
 
-    protected function updateTransactions($exchangeConfig, $transactions)
+    protected function updateTransactions(ExchangeConfig $exchangeConfig, $transactions)
     {
-        $notify_via = isset($exchangeConfig['notify']) ? explode(',', $exchangeConfig['notify']) : null;
+        $notify_via = $exchangeConfig->getNotifyVia();
         foreach ($transactions as $transaction) {
 //            var_dump($transaction);
             if ($transaction["status"] == "ok") {
                 $transactionModel = Transaction::updateOrCreate(
                     [
-                        'exchange' => strtoupper($exchangeConfig["exchange"]),
-                        'account' => $exchangeConfig["account"],
+                        'exchange' => strtoupper($exchangeConfig->getName()),
+                        'account' => $exchangeConfig->getAccount(),
                         'trxid' => $transaction["txid"],
                     ],
                     [
@@ -113,11 +120,11 @@ class ExchangeService
         }
     }
 
-    protected function updateBalances($exchangeConfig, $balances)
+    protected function updateBalances(ExchangeConfig $exchangeConfig, $balances)
     {
         $balance_list = Balance::where([
-            'exchange' => strtoupper($exchangeConfig["exchange"]),
-            'account' => $exchangeConfig["account"],
+            'exchange' => strtoupper($exchangeConfig->getName()),
+            'account' => $exchangeConfig->getAccount(),
         ]);
         /*        $torolni = $balance_list->get()->reject(function ($balance) use ($balances) {
                     return array_key_exists($balance->currency, $balances) && $balance->amount > 0;
@@ -133,8 +140,8 @@ class ExchangeService
             if ($value > 0) {
                 Balance::updateOrCreate(
                     [
-                        'exchange' => strtoupper($exchangeConfig["exchange"]),
-                        'account' => $exchangeConfig["account"],
+                        'exchange' => strtoupper($exchangeConfig->getName()),
+                        'account' => $exchangeConfig->getAccount(),
                         'currency' => $currency,
                     ],
                     ['amount' => $value]

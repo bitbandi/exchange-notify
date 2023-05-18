@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Service\ExchangeConfig;
 use App\Service\ExchangeService;
 use Exception;
 use Illuminate\Console\Scheduling\Schedule;
@@ -57,8 +58,9 @@ class QueryCommand extends Command
             $this->exchangeService->setNotify(!$this->option('no-notify'));
             $request_exchanges = $this->argument('exchange');
             foreach ($exchanges as $exchange) {
-                if (empty($request_exchanges) || in_array($exchange["exchange"], $request_exchanges)) {
-                    $this->exchangeService->Query($exchange);
+                $exchangeConfig = new ExchangeConfig($exchange);
+                if (empty($request_exchanges) || in_array($exchangeConfig->getName(), $request_exchanges)) {
+                    $this->exchangeService->Query($exchangeConfig);
                 }
             }
         } catch (Exception $exception) {
