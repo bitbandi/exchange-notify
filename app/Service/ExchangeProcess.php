@@ -31,4 +31,18 @@ class ExchangeProcess
         }
         return $arr;
     }
+
+    public static function fixBitgetTransactions(array $transactions): array
+    {
+        foreach ($transactions as &$t) {
+            $t["type"] = $t["type"] == "withdraw" ? "withdrawal" : $t['type'];
+            $fee = abs(floatval($t["info"]["fee"]));
+            $t["amount"] -= $fee;
+            $t["fee"] = array(
+                "currency" => $t["currency"],
+                "cost" => $fee,
+            );
+        }
+        return $transactions;
+    }
 }

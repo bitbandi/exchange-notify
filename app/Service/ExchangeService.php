@@ -59,6 +59,9 @@ class ExchangeService
         if ($exchange->has['fetchWithdrawals'] && $exchangeConfig->AllowQueryWithdrawals()) {
             foreach ($exchangeConfig->getWithdrawalSymbols() as $withdrawalsymbol) {
                 $withdrawals = $exchange->fetchWithdrawals($withdrawalsymbol);
+                if ($exchangeConfig->getName() == "bitget") {
+                    $withdrawals = ExchangeProcess::fixBitgetTransactions($withdrawals);
+                }
                 $this->updateTransactions($exchangeConfig, $withdrawals);
             }
         }
