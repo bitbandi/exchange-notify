@@ -42,7 +42,7 @@ class ExchangeConfig
 
     public function AllowQuery(string $query): bool
     {
-        if (array_key_exists("nofetch", $this->config)) {
+        if (array_key_exists("nofetch", $this->config) && is_array($this->config["nofetch"])) {
             return !in_array($query, $this->config["nofetch"]);
         }
         return true;
