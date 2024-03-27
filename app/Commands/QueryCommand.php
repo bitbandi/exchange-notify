@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Models\Error;
 use App\Service\ExchangeConfig;
 use App\Service\ExchangeService;
 use Exception;
@@ -62,12 +63,16 @@ class QueryCommand extends Command
                 if (empty($request_exchanges) || in_array($exchangeConfig->getName(), $request_exchanges)) {
                     try {
                         $this->exchangeService->Query($exchangeConfig);
+                        Error::DeleteByExchange($exchangeConfig);
                     } catch (Exception $exception) {
+                        Error::updateOrCreateByExchange($exchangeConfig, $exception->getMessage());
                         $this->error($exception->getMessage());
                     }
                 }
             }
+            Error::DeleteGlobal();
         } catch (Exception $exception) {
+            Error::updateOrCreateGlobal($exception->getMessage());
             $this->error($exception->getMessage());
         }
     }
