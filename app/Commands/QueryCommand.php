@@ -70,16 +70,16 @@ class QueryCommand extends Command
                 if (empty($request_exchanges) || in_array($exchangeConfig->getName(), $request_exchanges)) {
                     try {
                         $this->exchangeService->Query($exchangeConfig);
-                        $this->errorRepository->deleteErrorByExchange($exchangeConfig);
+                        $this->errorRepository->deleteByExchange($exchangeConfig);
                     } catch (Exception $exception) {
                         $this->errorRepository->updateOrCreateByExchange($exchangeConfig, $exception->getMessage());
                         $this->error($exception->getMessage());
                     }
                 }
             }
-            $this->errorRepository->deleteError();
+            $this->errorRepository->delete();
         } catch (Exception $exception) {
-            $this->errorRepository->updateOrCreateError($exception->getMessage());
+            $this->errorRepository->updateOrCreate($exception->getMessage());
             $this->error($exception->getMessage());
         }
     }

@@ -20,14 +20,14 @@ class ErrorRepository implements ErrorRepositoryInterface
             ]
         );
     }
-    public function deleteErrorByExchange(ExchangeConfig $exchangeConfig)
+    public function deleteByExchange(ExchangeConfig $exchangeConfig)
     {
         return Error::where([
             'exchange' => strtoupper($exchangeConfig->getName()),
             'account' => $exchangeConfig->getAccount(),
         ])->delete();
     }
-    public function updateOrCreateError(string $message)
+    public function updateOrCreate(string $message)
     {
         return Error::updateOrCreate(
             [
@@ -39,7 +39,7 @@ class ErrorRepository implements ErrorRepositoryInterface
             ]
         );
     }
-    public function deleteError()
+    public function delete()
     {
         return Error::where([
             'exchange' => 'MAIN',
