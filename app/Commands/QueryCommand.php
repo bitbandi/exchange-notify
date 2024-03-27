@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Interfaces\ErrorRepositoryInterface;
 use App\Models\Error;
 use App\Service\ExchangeConfig;
 use App\Service\ExchangeService;
@@ -32,15 +33,21 @@ class QueryCommand extends Command
     protected $exchangeService;
 
     /**
+     * @var ErrorRepositoryInterface
+     */
+    protected $errorRepository;
+
+    /**
      * QueryCommand constructor.
      *
      * @param ExchangeService $exchangeService
      */
-    public function __construct(ExchangeService $exchangeService)
+    public function __construct(ExchangeService $exchangeService, ErrorRepositoryInterface $errorRepository)
     {
         parent::__construct();
 
         $this->exchangeService = $exchangeService;
+        $this->errorRepository = $errorRepository;
     }
 
     /**
@@ -63,16 +70,16 @@ class QueryCommand extends Command
                 if (empty($request_exchanges) || in_array($exchangeConfig->getName(), $request_exchanges)) {
                     try {
                         $this->exchangeService->Query($exchangeConfig);
-                        Error::DeleteByExchange($exchangeConfig);
+                        $this->errorRepository->deleteErrorByExchange($exchangeConfig);
                     } catch (Exception $exception) {
-                        Error::updateOrCreateByExchange($exchangeConfig, $exception->getMessage());
+                        $this->errorRepository->updateOrCreateByExchange($exchangeConfig, $exception->getMessage());
                         $this->error($exception->getMessage());
                     }
                 }
             }
-            Error::DeleteGlobal();
+            $this->errorRepository->deleteError();
         } catch (Exception $exception) {
-            Error::updateOrCreateGlobal($exception->getMessage());
+            $this->errorRepository->updateOrCreateError($exception->getMessage());
             $this->error($exception->getMessage());
         }
     }

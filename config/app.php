@@ -77,5 +77,6 @@ return [
         PragmaRX\Yaml\Package\ServiceProvider::class,
         Henzeb\Console\Providers\ConsoleServiceProvider::class,
         App\Providers\AppServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
     ],
 ];
