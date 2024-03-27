@@ -40,6 +40,14 @@ class ExchangeConfig
         return null;
     }
 
+    public function getCustomLogin(): ?array
+    {
+        if (array_key_exists('customlogin', $this->config)) {
+            return $this->config["customlogin"];
+        }
+        return array();
+    }
+
     public function AllowQuery(string $query): bool
     {
         if (array_key_exists("nofetch", $this->config) && is_array($this->config["nofetch"])) {

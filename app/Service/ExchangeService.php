@@ -32,11 +32,11 @@ class ExchangeService
         }
         Console::info("Query ".$exchangeConfig->getName(). " exchange");
         $exchange_name = "\\ccxt\\" . $exchangeConfig->getName();
-        $exchange = new $exchange_name(array(
+        $exchange = new $exchange_name(array_merge(array(
             'apiKey' => $exchangeConfig->getApiKey(),
             'secret' => $exchangeConfig->getApiSecret(),
             'password' => $exchangeConfig->getApiPassword(),
-        ));
+        ), $exchangeConfig->getCustomLogin()));
         if ($exchange->has['fetchBalance'] && $exchangeConfig->AllowQueryBalance()) {
             $balances = $exchange->fetchBalance();
             $this->updateBalances($exchangeConfig, $balances);
