@@ -7,6 +7,7 @@ use App\Models\Error;
 use App\Service\ExchangeConfig;
 use App\Service\ExchangeService;
 use Exception;
+use Stringable;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
@@ -92,7 +93,10 @@ class QueryCommand extends Command
      */
     public function schedule(Schedule $schedule)
     {
-        //$schedule->command(static::class)->dailyAt(config('fathom.notify_at'));
-        // $schedule->command(static::class)->everyMinute();
+        $schedule->command(static::class)
+            ->everyTenMinutes()
+            ->thenWithOutput(function (Stringable $output) {
+                echo($output);
+            });
     }
 }
