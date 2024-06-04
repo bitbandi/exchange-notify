@@ -1,24 +1,24 @@
-FROM ubuntu:jammy 
-
-ARG user=www-data
-ARG uid=1000
-
-ARG DEBIAN_FRONTEND=noninteractive
+FROM alpine AS base
 
 RUN set -eux; \
-        apt-get update; \
-    	apt-get install -y --no-install-recommends \
-            php8.1-cli \
-            php8.1-bcmath \
-            php8.1-curl \
-            php8.1-intl \
-            php8.1-mbstring \
-            php8.1-mysql \
-            php8.1-sqlite3 \
-            php8.1-xml \
-            php8.1-zip \
-        ; \
-        rm -rf /var/lib/apt/lists/*
+    apk add --no-cache \
+        php82 \
+        php82-curl \
+        php82-gd \
+        php82-gettext \
+        php82-gmp \
+        php82-iconv \
+        php82-intl \
+        php82-json \
+        php82-mbstring \
+        php82-pdo_mysql \
+        php82-pecl-yaml \
+        php82-phar \
+        php82-xml \
+        php82-zlib \
+    ; \
+    ln -sf /usr/bin/php81 /usr/bin/php
+
 
 FROM composer:latest as vendor
 
@@ -30,16 +30,16 @@ RUN composer install \
     --no-scripts \
     --prefer-dist
 
-FROM base
+FROM base AS final
+
+ARG user=e-notify
+ARG uid=1000
 
 WORKDIR /var/www
 
+RUN adduser --uid $uid --disabled-password --home /var/www $user \
+    && addgroup $user root
 
-COPY . .
+COPY --chown=$uid:$uid . /var/www
 
-# Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
-
-RUN chown -R $uid:$uid /var/www
+COPY --from=vendor --chown=$uid:$uid /app/vendor /var/www/vendor
