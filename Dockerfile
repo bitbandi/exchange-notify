@@ -5,6 +5,7 @@ RUN set -eux; \
         php82 \
         php82-curl \
         php82-gd \
+        php82-dom \
         php82-gettext \
         php82-gmp \
         php82-iconv \
