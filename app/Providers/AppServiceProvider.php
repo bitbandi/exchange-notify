@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use PragmaRX\Yaml\Package\Facade as Yaml;
 
@@ -28,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfig();
+        $loader = AliasLoader::getInstance();
+        foreach (\ccxt\Exchange::$exchanges as $ex) {
+            $loader->alias("exchangenotify\\ccxt\\". $ex, "\\ccxt\\". $ex);
+        }
     }
 
     /**

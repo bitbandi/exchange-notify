@@ -31,7 +31,7 @@ class ExchangeService
             return;
         }
         Console::info("Query ".$exchangeConfig->getName(). " exchange");
-        $exchange_name = "\\ccxt\\" . $exchangeConfig->getName();
+        $exchange_name = "\\exchangenotify\\ccxt\\" . $exchangeConfig->getName();
         $exchange = new $exchange_name(array_merge(array(
             'apiKey' => $exchangeConfig->getApiKey(),
             'secret' => $exchangeConfig->getApiSecret(),
