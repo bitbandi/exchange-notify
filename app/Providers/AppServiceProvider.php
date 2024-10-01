@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helpers\CcxtKucoin;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use PragmaRX\Yaml\Package\Facade as Yaml;
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         foreach (\ccxt\Exchange::$exchanges as $ex) {
             $loader->alias("exchangenotify\\ccxt\\". $ex, "\\ccxt\\". $ex);
         }
+        $loader->alias("exchangenotify\\ccxt\\kucoin", CcxtKucoin::class);
     }
 
     /**
