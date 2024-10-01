@@ -44,9 +44,6 @@ class ExchangeService
         if ($exchange->has['fetchMyTrades'] && $exchangeConfig->AllowQueryTrades()) {
             foreach ($exchangeConfig->getTradeSymbols() as $tradesymbol) {
                 $trades = $exchange->fetchMyTrades($tradesymbol);
-                if ($exchangeConfig->getName() == "bitget") {
-                    $trades = ExchangeProcess::mergeBitgetTrades($trades);
-                }
                 $this->updateTrades($exchangeConfig, $trades);
             }
         }
@@ -59,9 +56,6 @@ class ExchangeService
         if ($exchange->has['fetchWithdrawals'] && $exchangeConfig->AllowQueryWithdrawals()) {
             foreach ($exchangeConfig->getWithdrawalSymbols() as $withdrawalsymbol) {
                 $withdrawals = $exchange->fetchWithdrawals($withdrawalsymbol);
-                if ($exchangeConfig->getName() == "bitget") {
-                    $withdrawals = ExchangeProcess::fixBitgetTransactions($withdrawals);
-                }
                 $this->updateTransactions($exchangeConfig, $withdrawals);
             }
         }
