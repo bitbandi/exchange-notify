@@ -139,7 +139,7 @@ class ExchangeService
                 });*/
 //        dd($torolni);
         $balance_list->get()->each(function ($balance) use ($balances) {
-            if (!(array_key_exists($balance->currency, $balances) && ($balance->amount > 0))) {
+            if (!(array_key_exists($balance->currency, $balances["total"]) && ($balances["total"][$balance->currency] > 0))) {
                 $balance->delete();
             }
         });
