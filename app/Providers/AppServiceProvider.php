@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Helpers\CcxtBitget;
+use App\Helpers\CcxtBitstamp;
 use App\Helpers\CcxtKucoin;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         }
         $loader->alias("exchangenotify\\ccxt\\kucoin", CcxtKucoin::class);
         $loader->alias("exchangenotify\\ccxt\\bitget", CcxtBitget::class);
+        $loader->alias("exchangenotify\\ccxt\\bitstamp", CcxtBitstamp::class);
     }
 
     /**
