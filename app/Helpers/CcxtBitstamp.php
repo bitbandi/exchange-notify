@@ -7,7 +7,7 @@ use \ccxt\bitstamp as BaseBitstamp;
 class CcxtBitstamp extends BaseBitstamp
 {
     // no func in ccxt, emulate this
-    public function describe() {
+    public function describe(): mixed {
         return $this->deep_extend(parent::describe(), array(
             'has' => array(
                 'fetchDeposits' => true,
