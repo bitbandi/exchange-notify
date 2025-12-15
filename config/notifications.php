@@ -4,7 +4,8 @@ function getPushoverTokens(): array
 {
     $result = [];
     foreach (\ccxt\Exchange::$exchanges as $exchange) {
-        $app_token = env('PUSHOVER_APP_' . strtoupper($exchange));
+        $exchange = strtoupper($exchange);
+        $app_token = env('PUSHOVER_APP_' . $exchange);
         if (!empty($app_token)) $result[$exchange] = $app_token;
     }
     return $result;
