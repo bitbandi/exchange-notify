@@ -1,7 +1,7 @@
 FROM alpine AS base
 
 RUN set -eux; \
-    apk add --no-cache \
+    apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.22/community \
         php82 \
         php82-curl \
         php82-gd \
