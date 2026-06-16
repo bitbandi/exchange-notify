@@ -21,7 +21,7 @@ RUN set -eux; \
     ln -sf /usr/bin/php81 /usr/bin/php
 
 
-FROM composer:latest as vendor
+FROM composer:latest AS vendor
 
 COPY composer.json composer.lock ./
 RUN composer install \
