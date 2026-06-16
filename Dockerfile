@@ -1,6 +1,11 @@
 FROM alpine AS base
 
 RUN set -eux; \
+    apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.22/main \
+        icu-libs=76.1-r1 \
+    ;
+
+RUN set -eux; \
     apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.22/community \
         php82 \
         php82-curl \
