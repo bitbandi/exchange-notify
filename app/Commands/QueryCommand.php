@@ -6,8 +6,8 @@ use App\Interfaces\ErrorRepositoryInterface;
 use App\Models\Error;
 use App\Service\ExchangeConfig;
 use App\Service\ExchangeService;
-use Exception;
 use Stringable;
+use Throwable;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 
@@ -72,14 +72,14 @@ class QueryCommand extends Command
                     try {
                         $this->exchangeService->Query($exchangeConfig);
                         $this->errorRepository->deleteByExchange($exchangeConfig);
-                    } catch (Exception $exception) {
+                    } catch (Throwable $exception) {
                         $this->errorRepository->updateOrCreateByExchange($exchangeConfig, $exception->getMessage());
                         $this->error($exception->getMessage());
                     }
                 }
             }
             $this->errorRepository->delete();
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $this->errorRepository->updateOrCreate($exception->getMessage());
             $this->error($exception->getMessage());
         }
