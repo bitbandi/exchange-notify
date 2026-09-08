@@ -16,9 +16,19 @@ class CcxtBitget extends BaseBitget
             unset($item["fees"]);
             return $item;
         }
+        $carryCurrency = $carry["fee"]["currency"] ?? null;
+        $itemCurrency = $item["fee"]["currency"] ?? null;
+        if ($carryCurrency !== $itemCurrency) {
+            throw new \RuntimeException(sprintf(
+                "Cannot merge bitget trades for order %s: mismatched fee currencies (%s vs %s)",
+                $item["order"],
+                $carryCurrency ?? 'none',
+                $itemCurrency ?? 'none'
+            ));
+        }
         $carry["amount"] += $item["amount"];
         $carry["cost"] += $item["cost"];
-        $carry["fee"]["cost"] += $item["fee"]["cost"];
+        $carry["fee"]["cost"] += $item["fee"]["cost"] ?? 0;
         $carry["price"] = $carry["cost"] / $carry["amount"];
         return $carry;
     }
