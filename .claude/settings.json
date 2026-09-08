@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(.env)",
+      "Edit(.env)",
+      "Write(.env)",
+      "Read(exchanges.yaml)",
+      "Edit(exchanges.yaml)",
+      "Write(exchanges.yaml)",
+      "Read(config/exchanges.yaml)",
+      "Edit(config/exchanges.yaml)",
+      "Write(config/exchanges.yaml)"
+    ]
+  },
+  "sandbox": {
+    "filesystem": {
+      "denyRead": [
+        ".env",
+        "exchanges.yaml",
+        "config/exchanges.yaml"
+      ],
+      "denyWrite": [
+        ".env",
+        "exchanges.yaml",
+        "config/exchanges.yaml"
+      ]
+    }
+  }
+}
