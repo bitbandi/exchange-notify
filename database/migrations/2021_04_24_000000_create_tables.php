@@ -24,10 +24,10 @@ class CreateTables extends Migration
         Schema::create('trades', function (Blueprint $table) {
             $table->string('exchange', 64);
             $table->string('account', 64)->nullable();
-            $table->string('tradeid', 64);
+            $table->string('tradeid', 128);
             $table->dateTime('datetime');
-            $table->string('primary_currency', 16);
-            $table->string('secondary_currency', 16);
+            $table->string('primary_currency', 32);
+            $table->string('secondary_currency', 32);
             $table->enum('type', ['BUY', 'SELL']);
             $table->unsignedDecimal('tradeprice', 20, 8)->comment("The price the trade occurred at");
             $table->unsignedDecimal('quantity', 20, 8)->comment("Quantity traded");

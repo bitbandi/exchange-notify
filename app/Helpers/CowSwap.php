@@ -74,18 +74,36 @@ class CowSwap extends Exchange
     protected function parse_order_trade(Order $order, CowApiClient $client): array {
         $raw = $order->raw();
         $sellToken = $this->token($client, $order->sellToken);
-        $buyToken = $this->token($client, $order->buyToken);
+        $sellSymbol = $sellToken->symbol;
         $sold = Amount::format($order->executedSellAmount, $sellToken->decimals);
-        $bought = Amount::format($order->executedBuyAmount, $buyToken->decimals);
+        if ($order->isCrossChain()) {
+            // swap & bridge: the order buys an intermediate token that is bridged, the real output is the
+            // bridge leg on the destination chain; the input stays the order's own sell amount
+            $bridge = $client->getBridgeStatus($order);
+            $output = $bridge->output;
+            $outputAmount = $output->amount ?? $output->expectedAmount;
+            if ($output->symbol === null || $output->decimals === null || $outputAmount === null) {
+                throw new ExchangeError($this->id . ' unknown bridge output of order ' . $order->uid . ' (' . $bridge->status->value . ($bridge->error !== null ? ': ' . $bridge->error : '') . ')');
+            }
+            // tag both sides with their chain, e.g. "USDC@Ethereum/EURe@Gnosis"
+            $sellSymbol .= '@' . $client->chain()->displayName();
+            $buySymbol = $output->symbol . '@' . ($output->chainName() ?? (string) $output->chainId);
+            $bought = Amount::format($outputAmount, $output->decimals);
+            $raw['bridge'] = $bridge->toArray();
+        } else {
+            $buyToken = $this->token($client, $order->buyToken);
+            $buySymbol = $buyToken->symbol;
+            $bought = Amount::format($order->executedBuyAmount, $buyToken->decimals);
+        }
         // sell order: base is the sold token; buy order: base is the bought token
         if ($order->kind === OrderKind::Buy) {
             $side = 'buy';
-            $symbol = $buyToken->symbol . '/' . $sellToken->symbol;
+            $symbol = $buySymbol . '/' . $sellSymbol;
             $amount = $bought;
             $cost = $sold;
         } else {
             $side = 'sell';
-            $symbol = $sellToken->symbol . '/' . $buyToken->symbol;
+            $symbol = $sellSymbol . '/' . $buySymbol;
             $amount = $sold;
             $cost = $bought;
         }
