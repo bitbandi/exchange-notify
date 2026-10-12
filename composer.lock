@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a90c7f6349173f706e23a8702d313d4e",
+    "content-hash": "246325d3a5e11438f7fb35a1ce1062dd",
     "packages": [
         {
             "name": "brick/math",
@@ -797,6 +797,48 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "elbandi/cow-api",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bitbandi/cow-api-php",
+                "reference": "603e785965365349881b50523217a035be94458b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bitbandi/cow-api-php/zipball/603e785965365349881b50523217a035be94458b",
+                "reference": "603e785965365349881b50523217a035be94458b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CowApi\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CowApi\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Read-only PHP client for the CoW Protocol (swap.cow.fi) order book API",
+            "time": "2026-10-12T12:47:58+00:00"
         },
         {
             "name": "evenement/evenement",

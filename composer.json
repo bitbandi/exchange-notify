@@ -15,9 +15,17 @@
             "email": "bandispam@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bitbandi/cow-api-php",
+            "no-api": true
+        }
+    ],
     "require": {
         "php": "^8.0",
         "ccxt/ccxt": "^4.3.39",
+        "elbandi/cow-api": "*",
         "henzeb/laravel-console-facade": "^1.18.2",
         "illuminate/database": "^9.0.0",
         "illuminate/notifications": "^9.0.0",
@@ -47,7 +55,10 @@
         }
     },
     "config": {
-        "preferred-install": "dist",
+        "preferred-install": {
+            "ccxt/ccxt": "source",
+            "*": "dist"
+        },
         "sort-packages": true,
         "optimize-autoloader": true,
         "allow-plugins": {
