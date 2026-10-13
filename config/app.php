@@ -82,6 +82,7 @@ return [
     */
 
     'providers' => [
+        Illuminate\Log\LogServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Notifications\SlackChannelServiceProvider::class,

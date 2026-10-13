@@ -33,6 +33,7 @@
         "ccxt/ccxt": "^4.5",
         "elbandi/cow-api": "*",
         "illuminate/database": "^13.0.0",
+        "illuminate/log": "^13.0",
         "illuminate/notifications": "^13.0.0",
         "illuminate/view": "^13.0.0",
         "laravel-notification-channels/discord": "^1.8",
