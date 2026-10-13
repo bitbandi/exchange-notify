@@ -14,3 +14,11 @@
   withdrawalsymbols:
     - ethereum:0x0000000000000000000000000000000000000000
     - base:0x0000000000000000000000000000000000000000
+- exchange: blockscout
+  apikey: blockscoutproapikey
+  account: mywallet
+  notify: telegram
+  depositsymbols:
+    - gnosis:0x0000000000000000000000000000000000000000
+  withdrawalsymbols:
+    - gnosis:0x0000000000000000000000000000000000000000

@@ -7,6 +7,7 @@ use App\Helpers\CcxtBitstamp;
 use App\Helpers\CcxtKraken;
 use App\Helpers\CcxtKucoin;
 use App\Helpers\CowSwap;
+use App\Helpers\Blockscout;
 use App\Helpers\Etherscan;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
@@ -48,6 +49,8 @@ class AppServiceProvider extends ServiceProvider
         $loader->alias("exchangenotify\\ccxt\\cowswap", CowSwap::class);
         \ccxt\Exchange::$exchanges[] = "etherscan";
         $loader->alias("exchangenotify\\ccxt\\etherscan", Etherscan::class);
+        \ccxt\Exchange::$exchanges[] = "blockscout";
+        $loader->alias("exchangenotify\\ccxt\\blockscout", Blockscout::class);
     }
 
     /**
