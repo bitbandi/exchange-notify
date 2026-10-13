@@ -7,6 +7,7 @@ use App\Helpers\CcxtBitstamp;
 use App\Helpers\CcxtKraken;
 use App\Helpers\CcxtKucoin;
 use App\Helpers\CowSwap;
+use App\Helpers\Etherscan;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use PragmaRX\Yaml\Package\Facade as Yaml;
@@ -45,6 +46,8 @@ class AppServiceProvider extends ServiceProvider
         // fake exchanges, not in ccxt
         \ccxt\Exchange::$exchanges[] = "cowswap";
         $loader->alias("exchangenotify\\ccxt\\cowswap", CowSwap::class);
+        \ccxt\Exchange::$exchanges[] = "etherscan";
+        $loader->alias("exchangenotify\\ccxt\\etherscan", Etherscan::class);
     }
 
     /**

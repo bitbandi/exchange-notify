@@ -4,3 +4,13 @@
   apisecret: 98765432
   account: youraccountname
   notify: slack
+- exchange: etherscan
+  apikey: etherscanv2apikey
+  account: mywallet
+  notify: telegram
+  depositsymbols:
+    - ethereum:0x0000000000000000000000000000000000000000
+    - base:0x0000000000000000000000000000000000000000
+  withdrawalsymbols:
+    - ethereum:0x0000000000000000000000000000000000000000
+    - base:0x0000000000000000000000000000000000000000

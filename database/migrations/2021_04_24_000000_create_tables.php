@@ -40,7 +40,7 @@ class CreateTables extends Migration
             $table->string('exchange', 64);
             $table->string('account', 64)->nullable();
             $table->string('trxid', 255);
-            $table->string('currency', 16);
+            $table->string('currency', 32);
             $table->dateTime('datetime');
             $table->enum('type', ['DEPOSIT','WITHDRAWAL']);
             $table->string('address', 255)->nullable();

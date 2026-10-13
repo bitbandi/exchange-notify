@@ -18,12 +18,18 @@
     "repositories": [
         {
             "type": "vcs",
+            "url": "https://github.com/bitbandi/etherscan-client-php",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
             "url": "https://github.com/bitbandi/cow-api-php",
             "no-api": true
         }
     ],
     "require": {
         "php": "^8.0",
+        "amashukov/etherscan-client-php": "dev-main",
         "ccxt/ccxt": "^4.3.39",
         "elbandi/cow-api": "*",
         "henzeb/laravel-console-facade": "^1.18.2",
