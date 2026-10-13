@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bdbdb9900e75ebd77536325c6936c98",
+    "content-hash": "af51a653ff122f847492819c2cd79dfe",
     "packages": [
         {
             "name": "amashukov/etherscan-client-php",
@@ -226,20 +226,21 @@
         },
         {
             "name": "ccxt/ccxt",
-            "version": "v4.5.57",
+            "version": "v4.5.87",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ccxt/ccxt.git",
-                "reference": "9ebdddc8c0c0382836cd124d27fc1466fe87801b"
+                "reference": "172f140f72c1375717c6ad1a043a9435ee8e924f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ccxt/ccxt/zipball/9ebdddc8c0c0382836cd124d27fc1466fe87801b",
-                "reference": "9ebdddc8c0c0382836cd124d27fc1466fe87801b",
+                "url": "https://api.github.com/repos/ccxt/ccxt/zipball/172f140f72c1375717c6ad1a043a9435ee8e924f",
+                "reference": "172f140f72c1375717c6ad1a043a9435ee8e924f",
                 "shasum": ""
             },
             "require": {
-                "evenement/evenement": "^3.0",
+                "clue/http-proxy-react": "1.10.0",
+                "evenement/evenement": "3.0.2",
                 "ext-bcmath": "*",
                 "ext-curl": "*",
                 "ext-gmp": "*",
@@ -247,24 +248,32 @@
                 "ext-json": "*",
                 "ext-openssl": "*",
                 "ext-pcre": "*",
-                "guzzlehttp/psr7": "^2.0",
-                "pear/console_table": "1.3.1",
+                "fig/http-message-util": "1.1.5",
+                "guzzlehttp/psr7": "2.13.0",
+                "kornrunner/keccak": "1.1.0",
                 "php": ">=8.1.0",
-                "ratchet/pawl": "^0.4.3",
-                "ratchet/rfc6455": "^0.4.0",
-                "react/async": "^4.3.0",
-                "react/http": ">=1.11.0",
-                "react/promise": "^3.3.0",
-                "react/promise-timer": "^1.11",
-                "symfony/polyfill-mbstring": "^1.7"
+                "phpseclib/phpseclib": "2.0.55",
+                "psr/http-factory": "1.1.0",
+                "psr/http-factory-implementation": "1.0.0",
+                "psr/http-message": "1.1",
+                "ralouphie/getallheaders": "3.0.3",
+                "ratchet/pawl": "0.4.3",
+                "ratchet/rfc6455": "0.4.1",
+                "react/async": "4.3.0",
+                "react/cache": "1.2.0",
+                "react/dns": "1.14.0",
+                "react/event-loop": "1.6.0",
+                "react/http": "1.11.1",
+                "react/promise": "3.3.0",
+                "react/promise-timer": "1.11.0",
+                "react/socket": "1.17.0",
+                "react/stream": "1.4.0",
+                "symfony/deprecation-contracts": "3.7.0",
+                "symfony/polyfill-mbstring": "1.38.2",
+                "symfony/polyfill-php80": "1.37.0"
             },
-            "suggest": {
-                "clue/buzz-react": "Required for asynchronous API calls to exchanges with PHP",
-                "clue/http-proxy-react": "Required for using a proxy when doing asynchronous API calls to exchanges with PHP",
-                "react/event-loop": "Required for asynchronous API calls to exchanges with PHP",
-                "react/http": "Required for asynchronous API calls to exchanges with PHP",
-                "recoil/react": "Required for asynchronous API calls to exchanges with PHP",
-                "recoil/recoil": "Required for asynchronous API calls to exchanges with PHP"
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "3.95.11"
             },
             "type": "library",
             "autoload": {
@@ -302,75 +311,32 @@
             "description": "A cryptocurrency trading API with more than 100 exchanges in JavaScript / TypeScript / Python / C# / PHP / Go",
             "homepage": "https://github.com/ccxt/ccxt",
             "keywords": [
-                "1BTCXE",
-                "1Broker",
-                "ACX",
-                "ANX",
-                "ANXPro",
-                "BL3P",
                 "BTC Markets",
-                "BTC Trade UA",
-                "BTCC",
-                "BTCChina",
-                "BTCExchange",
-                "BTCTrader",
                 "BTCTurk",
-                "BTCX",
-                "BX.in.th",
                 "Bit2C",
-                "BitBay",
-                "BitBays",
                 "BitMEX",
-                "BitMarket",
-                "Bitcoin.co.id",
-                "Bleutrade",
-                "BlinkTrade",
                 "BtcBox",
-                "Bter.com",
-                "C-CEX",
                 "CEX.IO",
-                "CHBTC",
                 "CNY",
-                "ChileBit",
                 "CoinMate",
                 "CoinSpot",
-                "Coinsecure",
-                "Crypto Capital",
+                "Coingecko",
                 "DOGE",
                 "EUR",
                 "EXMO",
-                "FYB-SE",
-                "FYB-SG",
                 "FoxBit",
                 "Gatecoin",
                 "Gemini",
                 "Huobi",
                 "HuobiPRO",
-                "LakeBTC",
-                "Liqui",
-                "LiveCoin",
                 "OKCoin",
-                "OKCoin.cn",
                 "OKCoin.com",
                 "OKEX",
+                "OKX",
                 "Paymium",
                 "Poloniex",
-                "QUOINE",
-                "Qryptos",
-                "QuadrigaCX",
-                "Southxchange",
-                "SurBitcoin",
-                "TheRockTrading",
-                "Tidex",
                 "USD",
-                "UrduBit",
-                "VBTC",
-                "Vaultoro",
-                "VirWoX",
-                "Wex",
-                "YoBit",
                 "Zaif",
-                "acx.io",
                 "algorithmic",
                 "algotrading",
                 "altcoin",
@@ -383,44 +349,28 @@
                 "binance.com",
                 "bit2c.co.il",
                 "bitcoin",
-                "bitcoincoid",
                 "bitfinex",
                 "bitflyer",
                 "bitflyer.jp",
                 "bithumb",
                 "bithumb.com",
-                "bitlish",
                 "bitso",
                 "bitstamp",
-                "bittrex",
-                "bleutrade.com",
                 "bot",
                 "btc",
-                "btc-e",
-                "btc-trade.com.ua",
-                "btc-x",
                 "btcbox.co.jp",
-                "btce",
-                "btcexchange.ph",
                 "btcmarkets",
                 "btcmarkets.net",
-                "btctrader.com",
                 "btcturk.com",
-                "bter",
-                "ccex",
                 "cex",
-                "chilebit.net",
                 "coin",
                 "coincheck",
-                "coingi",
-                "coingi.com",
                 "coinmarketcap",
                 "coins",
                 "coinspot.com.au",
                 "crypto",
                 "crypto currency",
                 "crypto market",
-                "cryptocapital.co",
                 "cryptocurrency",
                 "currencies",
                 "currency",
@@ -428,8 +378,6 @@
                 "dash",
                 "digital currency",
                 "dogecoin",
-                "dsx",
-                "dsx.uk",
                 "e-commerce",
                 "etc",
                 "eth",
@@ -437,25 +385,19 @@
                 "ethereum",
                 "exchange",
                 "exchanges",
-                "flowBTC",
-                "flowbtc.com",
                 "foxbit.exchange",
                 "framework",
-                "gdax",
                 "hitbtc",
+                "htx",
                 "huobi.pro",
                 "independent reserve",
                 "independentreserve.com",
                 "invest",
                 "investing",
                 "investor",
-                "itBit",
-                "jubi.com",
                 "kraken",
-                "lakebtc.com",
                 "library",
                 "light",
-                "liqui.io",
                 "litecoin",
                 "ltc",
                 "luno",
@@ -468,12 +410,8 @@
                 "merchandise",
                 "merchant",
                 "minimal",
-                "mixcoins",
-                "mixcoins.com",
-                "nova",
-                "novaexchange",
-                "novaexchange.com",
                 "okex.com",
+                "okx.com",
                 "order",
                 "order book",
                 "orderbook",
@@ -484,29 +422,18 @@
                 "public",
                 "ripple",
                 "strategy",
-                "surbitcoin.com",
-                "tidex.com",
                 "toolkit",
                 "trade",
                 "trader",
                 "trading",
-                "urdubit.com",
-                "vbtc.exchange",
-                "vbtc.vn",
                 "volume",
-                "wex.nz",
-                "xBTCe",
                 "xbt",
-                "xbtce.com",
                 "xrp",
-                "yobit.net",
-                "yunbi",
-                "zec",
-                "zerocoin"
+                "zec"
             ],
             "support": {
                 "issues": "https://github.com/ccxt/ccxt/issues",
-                "source": "https://github.com/ccxt/ccxt/tree/v4.5.57"
+                "source": "https://github.com/ccxt/ccxt/tree/v4.5.87"
             },
             "funding": [
                 {
@@ -514,7 +441,74 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-06-10T11:28:27+00:00"
+            "time": "2026-10-13T08:38:31+00:00"
+        },
+        {
+            "name": "clue/http-proxy-react",
+            "version": "v1.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/clue/reactphp-http-proxy.git",
+                "reference": "5bd777a2a55464aa722edde4176504a8875bdbab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/clue/reactphp-http-proxy/zipball/5bd777a2a55464aa722edde4176504a8875bdbab",
+                "reference": "5bd777a2a55464aa722edde4176504a8875bdbab",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "react/promise": "^3.3 || ^2.1 || ^1.2.1",
+                "react/socket": "^1.17"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.6 || ^8.5 || ^5.7 || ^4.8.36",
+                "react/async": "^4.3 || ^3 || ^2",
+                "react/event-loop": "^1.6",
+                "react/http": "^1.11",
+                "react/promise-timer": "^1.11"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Clue\\React\\HttpProxy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Lück",
+                    "email": "christian@clue.engineering"
+                }
+            ],
+            "description": "Async HTTP proxy connector, tunnel any TCP/IP-based protocol through an HTTP CONNECT proxy server, built on top of ReactPHP",
+            "homepage": "https://github.com/clue/reactphp-http-proxy",
+            "keywords": [
+                "async",
+                "connect",
+                "http",
+                "proxy",
+                "reactphp"
+            ],
+            "support": {
+                "issues": "https://github.com/clue/reactphp-http-proxy/issues",
+                "source": "https://github.com/clue/reactphp-http-proxy/tree/v1.10.0"
+            },
+            "funding": [
+                {
+                    "url": "https://clue.engineering/support",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/clue",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-06-29T09:33:22+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -1238,22 +1232,22 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.15.5",
+            "version": "7.15.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "ee80339fd9177ba44c49cdb653ff02a4d1106b9a"
+                "reference": "994a8a073c61d9c2282155e7671c0bc14bba19da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ee80339fd9177ba44c49cdb653ff02a4d1106b9a",
-                "reference": "ee80339fd9177ba44c49cdb653ff02a4d1106b9a",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/994a8a073c61d9c2282155e7671c0bc14bba19da",
+                "reference": "994a8a073c61d9c2282155e7671c0bc14bba19da",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/promises": "^2.5.3",
-                "guzzlehttp/psr7": "^2.13.1",
+                "guzzlehttp/promises": "^2.5.2",
+                "guzzlehttp/psr7": "^2.13",
                 "php": "^7.2.5 || ^8.0",
                 "psr/http-client": "^1.0",
                 "symfony/deprecation-contracts": "^2.5 || ^3.0",
@@ -1346,7 +1340,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.15.5"
+                "source": "https://github.com/guzzle/guzzle/tree/7.15.4"
             },
             "funding": [
                 {
@@ -1362,7 +1356,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-24T09:21:06+00:00"
+            "time": "2026-08-24T09:16:39+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1450,16 +1444,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.13.1",
+            "version": "2.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "95e7828100de18b4e269fb1703be530082d5166d"
+                "reference": "dad89620b7a6edb60c15858442eb2e408b45d8f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/95e7828100de18b4e269fb1703be530082d5166d",
-                "reference": "95e7828100de18b4e269fb1703be530082d5166d",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/dad89620b7a6edb60c15858442eb2e408b45d8f4",
+                "reference": "dad89620b7a6edb60c15858442eb2e408b45d8f4",
                 "shasum": ""
             },
             "require": {
@@ -1549,7 +1543,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.13.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.13.0"
             },
             "funding": [
                 {
@@ -1565,7 +1559,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-24T09:13:11+00:00"
+            "time": "2026-07-16T22:23:49+00:00"
         },
         {
             "name": "guzzlehttp/uri-template",
@@ -2507,7 +2501,7 @@
         },
         {
             "name": "illuminate/mail",
-            "version": "9.x-dev",
+            "version": "v9.52.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/mail.git",
@@ -3096,6 +3090,55 @@
                 "source": "https://github.com/jolicode/php-os-helper/tree/v0.1.0"
             },
             "time": "2023-12-03T12:46:03+00:00"
+        },
+        {
+            "name": "kornrunner/keccak",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kornrunner/php-keccak.git",
+                "reference": "433749d28e117fb97baf9f2631b92b5d9ab3c890"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kornrunner/php-keccak/zipball/433749d28e117fb97baf9f2631b92b5d9ab3c890",
+                "reference": "433749d28e117fb97baf9f2631b92b5d9ab3c890",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3",
+                "symfony/polyfill-mbstring": "^1.8"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "kornrunner\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Boris Momcilovic",
+                    "homepage": "https://github.com/kornrunner/php-keccak"
+                }
+            ],
+            "description": "Pure PHP implementation of Keccak",
+            "keywords": [
+                "keccak",
+                "sha-3",
+                "sha3-256"
+            ],
+            "support": {
+                "issues": "https://github.com/kornrunner/php-keccak/issues",
+                "source": "https://github.com/kornrunner/php-keccak/tree/1.1.0"
+            },
+            "time": "2020-12-07T15:40:44+00:00"
         },
         {
             "name": "laravel-notification-channels/discord",
@@ -4586,66 +4629,6 @@
             "time": "2024-11-21T10:36:35+00:00"
         },
         {
-            "name": "pear/console_table",
-            "version": "v1.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/Console_Table.git",
-                "reference": "1930c11897ca61fd24b95f2f785e99e0f36dcdea"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/Console_Table/zipball/1930c11897ca61fd24b95f2f785e99e0f36dcdea",
-                "reference": "1930c11897ca61fd24b95f2f785e99e0f36dcdea",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "suggest": {
-                "pear/Console_Color2": ">=0.1.2"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "Table.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Jan Schneider",
-                    "homepage": "http://pear.php.net/user/yunosh"
-                },
-                {
-                    "name": "Tal Peer",
-                    "homepage": "http://pear.php.net/user/tal"
-                },
-                {
-                    "name": "Xavier Noguer",
-                    "homepage": "http://pear.php.net/user/xnoguer"
-                },
-                {
-                    "name": "Richard Heyes",
-                    "homepage": "http://pear.php.net/user/richard"
-                }
-            ],
-            "description": "Library that makes it easy to build console style tables.",
-            "homepage": "http://pear.php.net/package/Console_Table/",
-            "keywords": [
-                "console"
-            ],
-            "support": {
-                "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Console_Table",
-                "source": "https://github.com/pear/Console_Table"
-            },
-            "abandoned": true,
-            "time": "2018-01-25T20:47:17+00:00"
-        },
-        {
             "name": "php-pushover/php-pushover",
             "version": "v1.0.1",
             "source": {
@@ -4753,6 +4736,116 @@
                 }
             ],
             "time": "2026-08-24T00:54:40+00:00"
+        },
+        {
+            "name": "phpseclib/phpseclib",
+            "version": "2.0.55",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpseclib/phpseclib.git",
+                "reference": "d73c9e019a895be83b18a2ccccfa7e2b0a648743"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d73c9e019a895be83b18a2ccccfa7e2b0a648743",
+                "reference": "d73c9e019a895be83b18a2ccccfa7e2b0a648743",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phing/phing": "~2.7",
+                "phpunit/phpunit": "^4.8.35|^5.7|^6.0|^8.5|^9.4",
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "suggest": {
+                "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
+                "ext-libsodium": "SSH2/SFTP can make use of some algorithms provided by the libsodium-php extension.",
+                "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
+                "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations.",
+                "ext-xml": "Install the XML extension to load XML formatted public keys."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "phpseclib/bootstrap.php"
+                ],
+                "psr-4": {
+                    "phpseclib\\": "phpseclib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jim Wigginton",
+                    "email": "terrafrost@php.net",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Patrick Monnerat",
+                    "email": "pm@datasphere.ch",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Andreas Fischer",
+                    "email": "bantu@phpbb.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Hans-Jürgen Petrich",
+                    "email": "petrich@tronic-media.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
+            "homepage": "http://phpseclib.sourceforge.net",
+            "keywords": [
+                "BigInteger",
+                "aes",
+                "asn.1",
+                "asn1",
+                "blowfish",
+                "crypto",
+                "cryptography",
+                "encryption",
+                "rsa",
+                "security",
+                "sftp",
+                "signature",
+                "signing",
+                "ssh",
+                "twofish",
+                "x.509",
+                "x509"
+            ],
+            "support": {
+                "issues": "https://github.com/phpseclib/phpseclib/issues",
+                "source": "https://github.com/phpseclib/phpseclib/tree/2.0.55"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/terrafrost",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/phpseclib",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/phpseclib/phpseclib",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2026-06-14T19:53:12+00:00"
         },
         {
             "name": "phrity/net-uri",
@@ -6516,16 +6609,16 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.7.1",
+            "version": "v3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "f3202fa1b5097b0af062dc978b32ecf63404e31d"
+                "reference": "50f59d1f3ca46d41ac911f97a78626b6756af35b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/f3202fa1b5097b0af062dc978b32ecf63404e31d",
-                "reference": "f3202fa1b5097b0af062dc978b32ecf63404e31d",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/50f59d1f3ca46d41ac911f97a78626b6756af35b",
+                "reference": "50f59d1f3ca46d41ac911f97a78626b6756af35b",
                 "shasum": ""
             },
             "require": {
@@ -6563,7 +6656,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.7.1"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.7.0"
             },
             "funding": [
                 {
@@ -6583,7 +6676,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-05T06:23:12+00:00"
+            "time": "2026-04-13T15:52:40+00:00"
         },
         {
             "name": "symfony/error-handler",
@@ -7608,16 +7701,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.43.0",
+            "version": "v1.38.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72"
+                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
-                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
+                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
                 "shasum": ""
             },
             "require": {
@@ -7669,7 +7762,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.43.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.38.2"
             },
             "funding": [
                 {
@@ -7689,20 +7782,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-24T15:19:04+00:00"
+            "time": "2026-05-27T06:59:30+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.43.0",
+            "version": "v1.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74"
+                "reference": "dfb55726c3a76ea3b6459fcfda1ec2d80a682411"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74",
-                "reference": "9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/dfb55726c3a76ea3b6459fcfda1ec2d80a682411",
+                "reference": "dfb55726c3a76ea3b6459fcfda1ec2d80a682411",
                 "shasum": ""
             },
             "require": {
@@ -7753,7 +7846,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.43.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.37.0"
             },
             "funding": [
                 {
@@ -7773,7 +7866,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-25T15:50:05+00:00"
+            "time": "2026-04-10T16:19:22+00:00"
         },
         {
             "name": "symfony/polyfill-php83",
