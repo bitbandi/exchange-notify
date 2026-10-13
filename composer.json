@@ -28,27 +28,26 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.4",
         "amashukov/etherscan-client-php": "dev-main",
         "ccxt/ccxt": "^4.5",
         "elbandi/cow-api": "*",
-        "henzeb/laravel-console-facade": "^1.19.0",
-        "illuminate/database": "^11.0.0",
-        "illuminate/notifications": "^11.0.0",
-        "illuminate/view": "^11.0.0",
+        "illuminate/database": "^13.0.0",
+        "illuminate/notifications": "^13.0.0",
+        "illuminate/view": "^13.0.0",
         "laravel-notification-channels/discord": "^1.8",
         "laravel-notification-channels/pushover": "^5.0.1",
-        "laravel-notification-channels/telegram": "^6.0.0",
-        "laravel-zero/framework": "^11.0.0",
+        "laravel-notification-channels/telegram": "^8.0.0",
+        "laravel-zero/framework": "^13.0.0",
         "laravel/slack-notification-channel": "^3.10.0",
-        "nesbot/carbon": "^2.0.0",
+        "nesbot/carbon": "^3.14.2",
         "php-pushover/php-pushover": "^1.0.1",
         "pragmarx/yaml": "^1.3.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24.1",
         "mockery/mockery": "^1.6.15",
-        "pestphp/pest": "^4.0.0"
+        "pestphp/pest": "^5.3.2"
     },
     "autoload": {
         "psr-4": {

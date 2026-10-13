@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+
 return [
 
     /*
@@ -89,7 +91,7 @@ return [
         NotificationChannels\Telegram\TelegramServiceProvider::class,
         PragmaRX\Yaml\Package\ServiceProvider::class,
         Henzeb\Console\Providers\ConsoleServiceProvider::class,
-        App\Providers\AppServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
+        AppServiceProvider::class,
     ],
 ];

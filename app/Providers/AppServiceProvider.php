@@ -17,10 +17,8 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         \DB::listen(function ($query) {
             var_dump($query->sql, $query->bindings);
@@ -30,10 +28,8 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfig();
         $loader = AliasLoader::getInstance();
