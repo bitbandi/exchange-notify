@@ -1,27 +1,22 @@
-FROM alpine AS base
+FROM alpine:3.24 AS base
 
 RUN set -eux; \
-    apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.22/main \
-        icu-libs=76.1-r1 \
-    ;
-
-RUN set -eux; \
-    apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.22/community \
-        php82 \
-        php82-curl \
-        php82-gd \
-        php82-dom \
-        php82-gettext \
-        php82-gmp \
-        php82-iconv \
-        php82-intl \
-        php82-json \
-        php82-mbstring \
-        php82-pdo_mysql \
-        php82-pecl-yaml \
-        php82-phar \
-        php82-xml \
-        php82-zlib \
+    apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.24/community \
+        php84 \
+        php84-curl \
+        php84-gd \
+        php84-dom \
+        php84-gettext \
+        php84-gmp \
+        php84-iconv \
+        php84-intl \
+        php84-json \
+        php84-mbstring \
+        php84-pdo_mysql \
+        php84-pecl-yaml \
+        php84-phar \
+        php84-xml \
+        php84-zlib \
     ; \
     ln -sf /usr/bin/php81 /usr/bin/php
 
