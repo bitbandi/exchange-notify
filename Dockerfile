@@ -29,6 +29,7 @@ RUN composer install \
     --no-interaction \
     --no-plugins \
     --no-scripts \
+    --no-dev \
     --prefer-dist
 
 FROM base AS final
