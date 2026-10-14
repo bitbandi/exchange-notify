@@ -32,6 +32,12 @@ jobs:
         echo "::add-matcher::${{ runner.tool_cache }}/php.json"
         echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
+    - name: Setup Composer auth for GitHub
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        composer config --global http-basic.github.com x-access-token $GITHUB_TOKEN
+
     - name: Install Composer dependencies
       run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist --no-suggest
 

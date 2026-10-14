@@ -23,6 +23,14 @@ RUN set -eux; \
 
 FROM composer:latest AS vendor
 
+ARG GITHUB_TOKEN
+RUN if [ -n "$GITHUB_TOKEN" ]; then \
+        composer config --global http-basic.github.com x-access-token $GITHUB_TOKEN; \
+        echo "Github authentication token stored"; \
+    fi
+
+ENV GIT_CURL_VERBOSE=1
+
 COPY composer.json composer.lock ./
 RUN composer install \
     --ignore-platform-reqs \
