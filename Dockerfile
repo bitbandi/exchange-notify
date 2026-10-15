@@ -23,9 +23,9 @@ RUN set -eux; \
 
 FROM composer:latest AS vendor
 
-ARG GITHUB_TOKEN
-RUN if [ -n "$GITHUB_TOKEN" ]; then \
-        composer config --global http-basic.github.com x-access-token $GITHUB_TOKEN; \
+ARG GITHUB_ACCESS
+RUN if [ -n "$GITHUB_ACCESS" ]; then \
+        composer config --global http-basic.github.com x-access-token $GITHUB_ACCESS; \
         echo "Github authentication token stored"; \
     fi
 
