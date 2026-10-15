@@ -17,6 +17,27 @@
     ],
     "repositories": [
         {
+            "type": "package",
+            "package": {
+                "name": "henzeb/laravel-console-facade",
+                "version": "1.19.0",
+                "dist": {
+                    "url": "https://api.github.com/repos/henzeb/laravel-console-facade/zipball/4064111abc1ee27bcabfef6f5ce40e8a931ba16b",
+                    "type": "zip"
+                },
+                "require": {
+                    "php": "^8.1",
+                    "illuminate/support": "^10|^11|^12|^13"
+                },
+                "autoload": {
+                    "files": ["src/Functions/Functions.php"],
+                    "psr-4": {
+                        "Henzeb\\Console\\": "src/"
+                    }
+                }
+            }
+        },
+        {
             "type": "vcs",
             "url": "https://github.com/bitbandi/etherscan-client-php",
             "no-api": true
@@ -32,6 +53,7 @@
         "amashukov/etherscan-client-php": "dev-main",
         "ccxt/ccxt": "^4.5",
         "elbandi/cow-api": "*",
+        "henzeb/laravel-console-facade": "^1.19",
         "illuminate/database": "^13.0.0",
         "illuminate/log": "^13.0",
         "illuminate/notifications": "^13.0.0",

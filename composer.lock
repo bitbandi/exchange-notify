@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbd8f1e67ca8f5cab7fdea630537291f",
+    "content-hash": "75d1165c8be451d17b6e3da01582b07c",
     "packages": [
         {
             "name": "amashukov/etherscan-client-php",
@@ -1657,6 +1657,27 @@
                 }
             ],
             "time": "2026-08-24T17:13:02+00:00"
+        },
+        {
+            "name": "henzeb/laravel-console-facade",
+            "version": "1.19.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/henzeb/laravel-console-facade/zipball/4064111abc1ee27bcabfef6f5ce40e8a931ba16b"
+            },
+            "require": {
+                "illuminate/support": "^10|^11|^12|^13",
+                "php": "^8.1"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Functions/Functions.php"
+                ],
+                "psr-4": {
+                    "Henzeb\\Console\\": "src/"
+                }
+            }
         },
         {
             "name": "illuminate/broadcasting",
