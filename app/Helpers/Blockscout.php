@@ -56,7 +56,7 @@ class Blockscout extends Exchange
         ));
     }
 
-    public function sign(string $path, mixed $api = 'rest', $method = 'GET', $params = array(), ?array $headers = null, ?string $body = null) {
+    public function sign($path, mixed $api = 'rest', $method = 'GET', $params = array(), mixed $headers = null, mixed $body = null) {
         $url = $this->urls['api'][$api] . '/' . $this->implode_params($path, $params);
         $query = $this->omit($params, $this->extract_params($path));
         $query['apikey'] = $this->apiKey;
