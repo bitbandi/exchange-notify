@@ -32,9 +32,17 @@ jobs:
         echo "::add-matcher::${{ runner.tool_cache }}/php.json"
         echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
+    - name: Generate access token
+      uses: actions/create-github-app-token@v3
+      id: generate_token
+      with:
+        client-id: ${{ secrets.COW_APP_ID }}
+        private-key: ${{ secrets.COW_APP_PRIVATE_KEY }}
+        owner: ${{ github.repository_owner }}
+
     - name: Setup Composer auth for GitHub
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
       run: |
         composer config --global http-basic.github.com x-access-token $GITHUB_TOKEN
 
