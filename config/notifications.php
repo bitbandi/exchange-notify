@@ -1,15 +1,5 @@
 <?php
-
-function getPushoverTokens(): array
-{
-    $result = [];
-    foreach (\ccxt\Exchange::$exchanges as $exchange) {
-        $exchange = strtoupper($exchange);
-        $app_token = env('PUSHOVER_APP_' . $exchange);
-        if (!empty($app_token)) $result[$exchange] = $app_token;
-    }
-    return $result;
-}
+use App\Support\Pushover;
 
 return [
     'notify_at' => env('NOTIFY_DAILY_AT', '09:00'),
@@ -17,7 +7,7 @@ return [
     'slack_url' => env('SLACK_URL'),
     'pushover_key' => env('PUSHOVER_KEY'),
     'pushover_token' => env('PUSHOVER_APP'),
-    'pushover_tokens' => getPushoverTokens(),
+    'pushover_tokens' => Pushover::getTokens(),
     'discord_user_id' => env('DISCORD_USER_ID'),
     'telegram_user_id' => env('TELEGRAM_USER_ID'),
 ];
