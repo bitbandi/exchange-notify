@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75d1165c8be451d17b6e3da01582b07c",
+    "content-hash": "d49877a5210988ab8d8617a90a275a1e",
     "packages": [
         {
             "name": "amashukov/etherscan-client-php",

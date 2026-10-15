@@ -72,6 +72,9 @@
         "mockery/mockery": "^1.6.15",
         "pestphp/pest": "^5.3.2"
     },
+    "conflict": {
+        "laravel-zero/foundation": "<13.23.1"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "app/"
