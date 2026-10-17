@@ -71,11 +71,19 @@ class CowSwap extends Exchange
             if (count($page) < $pageSize) {
                 break; // no more orders
             }
+            // orders come newest first, older pages only have orders before since
+            if ($since !== null && $this->order_timestamp(end($page)) < $since) {
+                break;
+            }
         }
         // the last page may go past the limit, don't parse (and bridge-lookup) the extra orders
         $orders = array_slice($orders, 0, $total);
         $result = array();
         foreach ($orders as $order) {
+            // the last page can reach before since, don't parse (and bridge-lookup) those orders
+            if ($since !== null && $this->order_timestamp($order) < $since) {
+                continue;
+            }
             // fulfilled, or partially filled and then cancelled/expired
             if (Precise::string_gt($order->executedSellAmount, '0')) {
                 // a single bad order (unknown token, bridge lookup, rate limit) must not drop the others
@@ -136,7 +144,7 @@ class CowSwap extends Exchange
             );
         }
         $raw['network'] = $client->chain()->value;
-        $timestamp = $order->creationDate->getTimestamp() * 1000 + intdiv((int) $order->creationDate->format('u'), 1000);
+        $timestamp = $this->order_timestamp($order);
         return array(
             'info' => $raw,
             'id' => $order->uid,
@@ -152,6 +160,11 @@ class CowSwap extends Exchange
             'cost' => $this->parse_number($cost),
             'fee' => $fee,
         );
+    }
+
+    // creation time in milliseconds
+    protected function order_timestamp(Order $order): int {
+        return $order->creationDate->getTimestamp() * 1000 + intdiv($order->creationDate->getMicrosecond(), 1000);
     }
 
     protected function token(CowApiClient $client, string $address): Token {
