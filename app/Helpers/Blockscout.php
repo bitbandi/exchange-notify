@@ -12,6 +12,7 @@ use \ccxt\Precise;
 class Blockscout extends Exchange
 {
     protected $transfers = array();
+    protected $transfersFetchedAt = array();
 
     public function describe(): mixed {
         return $this->deep_extend(parent::describe(), array(
@@ -37,6 +38,8 @@ class Blockscout extends Exchange
             ),
             'options' => array(
                 'defaultNetwork' => 'ethereum',
+                // milliseconds the transfers of an address are reused for deposits and withdrawals
+                'transfersTtl' => 60000,
                 // network name => [chain id, display name]
                 'networks' => array(
                     'ethereum' => array(1, 'Ethereum'),
@@ -90,7 +93,8 @@ class Blockscout extends Exchange
         $token = isset($m[3]) ? strtolower($m[3]) : null;
         // deposits and withdrawals of the same address come from one request (first page, newest first)
         $key = $chainId . ':' . $address . ':' . $token;
-        if (!array_key_exists($key, $this->transfers)) {
+        $now = $this->milliseconds();
+        if (!array_key_exists($key, $this->transfers) || $now - $this->transfersFetchedAt[$key] >= $this->options['transfersTtl']) {
             $request = array(
                 'chain_id' => $chainId,
                 'address' => $address,
@@ -101,6 +105,7 @@ class Blockscout extends Exchange
             }
             $response = $this->request('{chain_id}/api/v2/addresses/{address}/token-transfers', 'rest', 'GET', $request);
             $this->transfers[$key] = $this->safe_list($response, 'items', array());
+            $this->transfersFetchedAt[$key] = $now;
         }
         // a transaction may move several transfers of the same token in the same direction: sum them
         $result = array();

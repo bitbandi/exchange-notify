@@ -21,6 +21,7 @@ class Etherscan extends Exchange
 {
     protected $clients = array();
     protected $transfers = array();
+    protected $transfersFetchedAt = array();
 
     public function describe(): mixed {
         return $this->deep_extend(parent::describe(), array(
@@ -37,6 +38,8 @@ class Etherscan extends Exchange
                 'pageSize' => 1000,
                 // request limit of one address read when paging back to since
                 'maxPages' => 20,
+                // milliseconds the transfers of an address are reused for deposits and withdrawals
+                'transfersTtl' => 60000,
                 // network name => [etherscan v2 chain id, display name]
                 'networks' => array(
                     'ethereum' => array(1, 'Ethereum'),
@@ -90,8 +93,10 @@ class Etherscan extends Exchange
         $pageSize = ($limit !== null) ? $limit : $this->options['pageSize'];
         // deposits and withdrawals of the same address come from the same requests
         $key = $chainId . ':' . $address . ':' . $token . ':' . $pageSize . ':' . $since;
-        if (!array_key_exists($key, $this->transfers)) {
+        $now = $this->milliseconds();
+        if (!array_key_exists($key, $this->transfers) || $now - $this->transfersFetchedAt[$key] >= $this->options['transfersTtl']) {
             $this->transfers[$key] = $this->fetch_transfer_pages($chainId, $address, $token, $pageSize, $since);
+            $this->transfersFetchedAt[$key] = $now;
         }
         // a transaction may move several transfers of the same token in the same direction: sum them
         $result = array();
