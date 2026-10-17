@@ -6,6 +6,7 @@ use \ccxt\Exchange;
 use \ccxt\ArgumentsRequired;
 use \ccxt\BadSymbol;
 use \ccxt\Precise;
+use Illuminate\Support\Facades\Log;
 
 // not a real ccxt exchange, only the erc-20 token transfers of a wallet address from the blockscout pro api
 // (passed as symbol "network:address", optionally "network:address:tokencontract")
@@ -38,6 +39,10 @@ class Blockscout extends Exchange
             ),
             'options' => array(
                 'defaultNetwork' => 'ethereum',
+                // maximum items_count of a request (the api clamps above its maximum, 100 by default), also the default limit
+                'pageSize' => 100,
+                // request limit of one address read when paging back to since or up to the limit
+                'maxPages' => 20,
                 // milliseconds the transfers of an address are reused for deposits and withdrawals
                 'transfersTtl' => 60000,
                 // network name => [chain id, display name]
@@ -91,20 +96,12 @@ class Blockscout extends Exchange
         $address = strtolower($m[2]);
         // all tokens unless one contract is given
         $token = isset($m[3]) ? strtolower($m[3]) : null;
-        // deposits and withdrawals of the same address come from one request (first page, newest first)
-        $key = $chainId . ':' . $address . ':' . $token;
+        $total = ($limit !== null) ? $limit : $this->options['pageSize'];
+        // deposits and withdrawals of the same address come from the same requests
+        $key = $chainId . ':' . $address . ':' . $token . ':' . $total . ':' . $since;
         $now = $this->milliseconds();
         if (!array_key_exists($key, $this->transfers) || $now - $this->transfersFetchedAt[$key] >= $this->options['transfersTtl']) {
-            $request = array(
-                'chain_id' => $chainId,
-                'address' => $address,
-                'type' => 'ERC-20',
-            );
-            if ($token !== null) {
-                $request['token'] = $token;
-            }
-            $response = $this->request('{chain_id}/api/v2/addresses/{address}/token-transfers', 'rest', 'GET', $request);
-            $this->transfers[$key] = $this->safe_list($response, 'items', array());
+            $this->transfers[$key] = $this->fetch_transfer_pages($chainId, $address, $token, $total, $since);
             $this->transfersFetchedAt[$key] = $now;
         }
         // a transaction may move several transfers of the same token in the same direction: sum them
@@ -140,6 +137,45 @@ class Blockscout extends Exchange
         }
         $result = $this->sort_by(array_values($result), 'timestamp');
         return $this->filter_by_since_limit($result, $since, $limit);
+    }
+
+    // newest first; without since pages until total transfers are read, with since until a page reaches back to it
+    protected function fetch_transfer_pages(int $chainId, string $address, ?string $token, int $total, ?int $since): array {
+        $pageSize = min($this->options['pageSize'], $total);
+        $request = array(
+            'chain_id' => $chainId,
+            'address' => $address,
+            'type' => 'ERC-20',
+            'items_count' => $pageSize,
+        );
+        if ($token !== null) {
+            $request['token'] = $token;
+        }
+        $transfers = array();
+        for ($requests = 1; ; $requests++) {
+            $response = $this->request('{chain_id}/api/v2/addresses/{address}/token-transfers', 'rest', 'GET', $request);
+            $page = $this->safe_list($response, 'items', array());
+            $transfers = array_merge($transfers, $page);
+            // keyset paging: the cursor of the next page, null after the last one
+            $next = $this->safe_dict($response, 'next_page_params');
+            $oldest = end($page);
+            if ($next === null || $oldest === false) {
+                break;
+            }
+            if ($since === null ? count($transfers) >= $total : $this->parse8601($oldest['timestamp']) < $since) {
+                break;
+            }
+            if ($requests >= $this->options['maxPages']) {
+                Log::warning($this->id . ' stopped paging early', array('chain' => $chainId, 'address' => $address, 'requests' => $requests, 'since' => $since, 'total' => $total));
+                break;
+            }
+            $request = $this->extend($request, $next);
+            if ($since === null) {
+                // the last page only up to the limit
+                $request['items_count'] = min($pageSize, $total - count($transfers));
+            }
+        }
+        return $transfers;
     }
 
     // some tokens emit the same transfer on several contracts (e.g. monerium EURe v1 and v2):
