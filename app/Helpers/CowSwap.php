@@ -61,7 +61,19 @@ class CowSwap extends Exchange
             throw new BadSymbol($this->id . ' unknown network ' . $network . ', supported: ' . implode(', ', array_column(Chain::cases(), 'value')));
         }
         $client = $this->client($chain);
-        $orders = $client->getOrdersByOwner($m[2], ($limit !== null) ? $limit : 100);
+        // the api returns at most MAX_PAGE_SIZE orders per request, page through larger limits
+        $total = ($limit !== null) ? $limit : 100;
+        $orders = array();
+        $pageSize = min(CowApiClient::MAX_PAGE_SIZE, $total);
+        for ($offset = 0; $offset < $total; $offset += $pageSize) {
+            $page = $client->getOrdersByOwner($m[2], $pageSize, $offset);
+            $orders = array_merge($orders, $page);
+            if (count($page) < $pageSize) {
+                break; // no more orders
+            }
+        }
+        // the last page may go past the limit, don't parse (and bridge-lookup) the extra orders
+        $orders = array_slice($orders, 0, $total);
         $result = array();
         foreach ($orders as $order) {
             // fulfilled, or partially filled and then cancelled/expired
