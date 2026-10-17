@@ -13,6 +13,7 @@ use Amashukov\Etherscan\Sort;
 use Amashukov\Etherscan\Vo\TokenTransfer;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;
+use Illuminate\Support\Facades\Log;
 
 // not a real ccxt exchange, only the erc-20 token transfers of a wallet address
 // (passed as symbol "network:address", optionally "network:address:tokencontract")
@@ -34,6 +35,8 @@ class Etherscan extends Exchange
             'options' => array(
                 'defaultNetwork' => 'ethereum',
                 'pageSize' => 1000,
+                // request limit of one address read when paging back to since
+                'maxPages' => 20,
                 // network name => [etherscan v2 chain id, display name]
                 'networks' => array(
                     'ethereum' => array(1, 'Ethereum'),
@@ -85,12 +88,10 @@ class Etherscan extends Exchange
         // all tokens unless one contract is given
         $token = isset($m[3]) ? strtolower($m[3]) : null;
         $pageSize = ($limit !== null) ? $limit : $this->options['pageSize'];
-        // deposits and withdrawals of the same address come from one request
-        $key = $chainId . ':' . $address . ':' . $token . ':' . $pageSize;
+        // deposits and withdrawals of the same address come from the same requests
+        $key = $chainId . ':' . $address . ':' . $token . ':' . $pageSize . ':' . $since;
         if (!array_key_exists($key, $this->transfers)) {
-            // newest first, so the page holds the latest transfers
-            $query = new AddressHistoryQuery(pageSize: $pageSize, sort: Sort::Descending);
-            $this->transfers[$key] = $this->client($chainId)->tokenTransfers($address, $token, $query);
+            $this->transfers[$key] = $this->fetch_transfer_pages($chainId, $address, $token, $pageSize, $since);
         }
         // a transaction may move several transfers of the same token in the same direction: sum them
         $result = array();
@@ -118,6 +119,33 @@ class Etherscan extends Exchange
         }
         $result = $this->sort_by(array_values($result), 'timestamp');
         return $this->filter_by_since_limit($result, $since, $limit);
+    }
+
+    // newest first; without since only the first page, with since further pages until the page reaches back to it
+    protected function fetch_transfer_pages(int $chainId, string $address, ?string $token, int $pageSize, ?int $since): array {
+        $query = new AddressHistoryQuery(pageSize: $pageSize, sort: Sort::Descending);
+        $transfers = array();
+        for ($request = 1; ; $request++) {
+            $page = $this->client($chainId)->tokenTransfers($address, $token, $query);
+            $transfers = array_merge($transfers, $page);
+            $oldest = end($page);
+            // a short page is the last one
+            if ($since === null || count($page) < $pageSize || $oldest->timestamp * 1000 < $since) {
+                break;
+            }
+            if ($request >= $this->options['maxPages']) {
+                Log::warning($this->id . ' stopped paging before since', array('chain' => $chainId, 'address' => $address, 'requests' => $request, 'since' => $since));
+                break;
+            }
+            if ($query->isLastAllowedPage()) {
+                // past the result window: read again from the oldest block, its rows are dropped here so they are not counted twice
+                $transfers = array_values(array_filter($transfers, fn (TokenTransfer $transfer) => $transfer->blockNumber !== $oldest->blockNumber));
+                $query = $query->withEndBlock($oldest->blockNumber);
+            } else {
+                $query = $query->nextPage();
+            }
+        }
+        return $transfers;
     }
 
     protected function parse_token_transfer(TokenTransfer $transfer, string $type, string $network, string $chainName): array {
