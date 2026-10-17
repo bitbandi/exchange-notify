@@ -9,6 +9,7 @@ use \ccxt\ExchangeError;
 use \ccxt\Precise;
 use CowApi\Chain;
 use CowApi\CowApiClient;
+use CowApi\Exception\CowApiException;
 use CowApi\Exception\InvalidArgumentException;
 use CowApi\Http\CurlHttpClient;
 use CowApi\Model\Order;
@@ -16,6 +17,7 @@ use CowApi\Model\OrderKind;
 use CowApi\Token\RpcTokenResolver;
 use CowApi\Token\Token;
 use CowApi\Util\Amount;
+use Illuminate\Support\Facades\Log;
 
 // not a real ccxt exchange, only fetchMyTrades for a wallet address (passed as symbol, optionally "network:address")
 class CowSwap extends Exchange
@@ -64,7 +66,12 @@ class CowSwap extends Exchange
         foreach ($orders as $order) {
             // fulfilled, or partially filled and then cancelled/expired
             if (Precise::string_gt($order->executedSellAmount, '0')) {
-                $result[] = $this->parse_order_trade($order, $client);
+                // a single bad order (unknown token, bridge lookup, rate limit) must not drop the others
+                try {
+                    $result[] = $this->parse_order_trade($order, $client);
+                } catch (ExchangeError | CowApiException $e) {
+                    Log::warning($this->id . ' skipped order: ' . $e->getMessage(), array('order' => $order->uid, 'network' => $chain->value, 'exception' => $e));
+                }
             }
         }
         $result = $this->sort_by($result, 'timestamp');
