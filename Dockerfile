@@ -18,7 +18,7 @@ RUN set -eux; \
         php84-xml \
         php84-zlib \
     ; \
-    ln -sf /usr/bin/php81 /usr/bin/php
+    ln -sf /usr/bin/php84 /usr/bin/php
 
 
 FROM composer:latest AS vendor
