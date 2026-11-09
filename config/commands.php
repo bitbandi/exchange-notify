@@ -3,6 +3,7 @@
 use Illuminate\Console\Scheduling\ScheduleFinishCommand;
 use Illuminate\Console\Scheduling\ScheduleListCommand;
 use Illuminate\Console\Scheduling\ScheduleRunCommand;
+use Illuminate\Console\Scheduling\ScheduleWorkCommand;
 use Illuminate\Foundation\Console\VendorPublishCommand;
 use LaravelZero\Framework\Commands\StubPublishCommand;
 use NunoMaduro\LaravelConsoleSummary\SummaryCommand;
@@ -70,6 +71,7 @@ return [
         ScheduleRunCommand::class,
         ScheduleListCommand::class,
         ScheduleFinishCommand::class,
+        ScheduleWorkCommand::class,
         VendorPublishCommand::class,
         StubPublishCommand::class,
     ],
