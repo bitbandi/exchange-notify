@@ -12,6 +12,7 @@ RUN set -eux; \
         php84-intl \
         php84-json \
         php84-mbstring \
+        php84-pcntl \
         php84-pdo_mysql \
         php84-pecl-yaml \
         php84-phar \

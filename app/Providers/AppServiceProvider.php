@@ -9,6 +9,7 @@ use App\Helpers\CcxtKucoin;
 use App\Helpers\CowSwap;
 use App\Helpers\Blockscout;
 use App\Helpers\Etherscan;
+use Illuminate\Console\Signals;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use PragmaRX\Yaml\Package\Facade as Yaml;
@@ -32,6 +33,11 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfig();
+        Signals::resolveAvailabilityUsing(function () {
+            return $this->app->runningInConsole()
+                && ! $this->app->runningUnitTests()
+                && extension_loaded('pcntl');
+        });
         $loader = AliasLoader::getInstance();
         foreach (\ccxt\Exchange::$exchanges as $ex) {
             $loader->alias("exchangenotify\\ccxt\\". $ex, "\\ccxt\\". $ex);
